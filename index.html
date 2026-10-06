@@ -46,8 +46,8 @@
   --btn-text: #ffffff;
   --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+/* Dark is the default look for everyone, whatever their device setting. */
+:root:not([data-theme="light"]) {
     color-scheme: dark;
     --page: #0d1015;
     --surface: #151a21;
@@ -79,7 +79,6 @@
     --info-bg: rgba(142, 162, 191, 0.14);
     --btn: #f0f3f7;
     --btn-text: #0f1826;
-  }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
