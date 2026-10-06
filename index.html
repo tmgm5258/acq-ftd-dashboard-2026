@@ -1,0 +1,1728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>2026 FTD Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #f7f9fb;
+  --ink: #0f1826;
+  --ink-2: #465163;
+  --muted: #6f7a8b;
+  --grid: #e8ebf0;
+  --axis: #c6ccd5;
+  --border: rgba(15, 24, 38, 0.10);
+  --hover: rgba(15, 24, 38, 0.05);
+  --c-lucas: #2a78d6;
+  --c-wayne: #eb6834;
+  --c-total: #2c3a4e;
+  --c-partner: #4a3aa7;
+  --c-other: #b8c0cb;
+  --c-target: #6f7a8b;
+  --good: #0ca30c;
+  --good-ink: #006300;
+  --good-bg: rgba(12, 163, 12, 0.10);
+  --warning: #e39c00;
+  --warning-ink: #7a4f00;
+  --warning-bg: rgba(250, 178, 25, 0.16);
+  --serious: #ec835a;
+  --serious-ink: #9c3d15;
+  --serious-bg: rgba(236, 131, 90, 0.14);
+  --critical: #d03b3b;
+  --critical-ink: #a82323;
+  --critical-bg: rgba(208, 59, 59, 0.10);
+  --info: #5b6f8c;
+  --info-ink: #3b4c66;
+  --info-bg: rgba(91, 111, 140, 0.10);
+  --btn: #0f1826;
+  --btn-text: #ffffff;
+  --font: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d1015;
+    --surface: #151a21;
+    --surface-2: #1a2029;
+    --ink: #f0f3f7;
+    --ink-2: #b6bfcb;
+    --muted: #8b95a4;
+    --grid: #242b35;
+    --axis: #3b4450;
+    --border: rgba(255, 255, 255, 0.10);
+    --hover: rgba(255, 255, 255, 0.06);
+    --c-lucas: #3987e5;
+    --c-wayne: #d95926;
+    --c-total: #d6dde7;
+    --c-partner: #9085e9;
+    --c-other: #525b68;
+    --c-target: #8b95a4;
+    --good-ink: #4cc94c;
+    --good-bg: rgba(12, 163, 12, 0.18);
+    --warning: #fab219;
+    --warning-ink: #f6c453;
+    --warning-bg: rgba(250, 178, 25, 0.14);
+    --serious-ink: #f3a07e;
+    --serious-bg: rgba(236, 131, 90, 0.16);
+    --critical-ink: #ee7c7c;
+    --critical-bg: rgba(208, 59, 59, 0.18);
+    --info: #8ea2bf;
+    --info-ink: #b3c2d8;
+    --info-bg: rgba(142, 162, 191, 0.14);
+    --btn: #f0f3f7;
+    --btn-text: #0f1826;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d1015;
+  --surface: #151a21;
+  --surface-2: #1a2029;
+  --ink: #f0f3f7;
+  --ink-2: #b6bfcb;
+  --muted: #8b95a4;
+  --grid: #242b35;
+  --axis: #3b4450;
+  --border: rgba(255, 255, 255, 0.10);
+  --hover: rgba(255, 255, 255, 0.06);
+  --c-lucas: #3987e5;
+  --c-wayne: #d95926;
+  --c-total: #d6dde7;
+  --c-partner: #9085e9;
+  --c-other: #525b68;
+  --c-target: #8b95a4;
+  --good-ink: #4cc94c;
+  --good-bg: rgba(12, 163, 12, 0.18);
+  --warning: #fab219;
+  --warning-ink: #f6c453;
+  --warning-bg: rgba(250, 178, 25, 0.14);
+  --serious-ink: #f3a07e;
+  --serious-bg: rgba(236, 131, 90, 0.16);
+  --critical-ink: #ee7c7c;
+  --critical-bg: rgba(208, 59, 59, 0.18);
+  --info: #8ea2bf;
+  --info-ink: #b3c2d8;
+  --info-bg: rgba(142, 162, 191, 0.14);
+  --btn: #f0f3f7;
+  --btn-text: #0f1826;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.app {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: 28px 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { text-wrap: balance; }
+button { font: inherit; color: inherit; }
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h1 { font-size: 28px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; margin-top: 4px; }
+.meta { color: var(--ink-2); margin-top: 6px; }
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1.3;
+}
+.btn-primary { background: var(--btn); color: var(--btn-text); }
+.btn-secondary { background: var(--surface); border-color: var(--border); color: var(--ink); }
+.btn-secondary:hover { background: var(--surface-2); }
+.btn-ghost { background: transparent; color: var(--ink-2); }
+.btn-ghost:hover { background: var(--hover); color: var(--ink); }
+.btn:disabled { opacity: 0.55; cursor: default; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+.seg button {
+  border: 0;
+  background: transparent;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.seg button:hover { background: var(--hover); color: var(--ink); }
+.seg button[aria-selected="true"], .seg button[aria-pressed="true"] {
+  background: var(--btn);
+  color: var(--btn-text);
+}
+.seg .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.seg-label { color: var(--muted); font-size: 12px; margin-right: 2px; }
+.filter-wrap { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.tile { display: grid; gap: 6px; align-content: start; }
+.tile-label { color: var(--ink-2); font-weight: 500; }
+.tile-value { font-size: 30px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; }
+.hero-value { font-size: 52px; line-height: 1; font-weight: 600; letter-spacing: -0.02em; }
+.hero-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tile-sub { color: var(--ink-2); font-size: 13px; }
+.tile-delta { font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+.tile-delta.up { color: var(--good-ink); }
+.tile-delta.down { color: var(--serious-ink); }
+.tile-delta.flat { color: var(--ink-2); }
+.meter { height: 8px; border-radius: 99px; overflow: hidden; background: var(--m-track, var(--grid)); margin-block: 6px 2px; }
+.meter > span { display: block; height: 100%; border-radius: 99px; background: var(--m-fill, var(--c-total)); width: 0; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chip svg { width: 13px; height: 13px; flex: none; }
+.chip.good { background: var(--good-bg); color: var(--good-ink); }
+.chip.warning { background: var(--warning-bg); color: var(--warning-ink); }
+.chip.serious { background: var(--serious-bg); color: var(--serious-ink); }
+.chip.critical { background: var(--critical-bg); color: var(--critical-ink); }
+.chip.info { background: var(--info-bg); color: var(--info-ink); }
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  padding: 12px 18px;
+  color: var(--ink-2);
+}
+.strip b { color: var(--ink); font-weight: 600; margin-right: 6px; }
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.chart-card { display: grid; gap: 10px; align-content: start; }
+.chart-head h2, .section-head h2 { font-size: 15px; font-weight: 600; }
+.chart-head p, .section-head p { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+.chart { position: relative; width: 100%; min-height: 240px; }
+.chart .empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 13px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { display: inline-block; flex: none; }
+.sw.bar { width: 10px; height: 10px; border-radius: 2px; }
+.sw.line { width: 16px; height: 2px; border-radius: 2px; }
+.sw.dash { width: 16px; height: 0; border-top: 2px dashed var(--c-target); }
+.sw.mark { width: 14px; height: 2px; border-radius: 2px; background: var(--c-target); }
+.k-lucas { background: var(--c-lucas); }
+.k-wayne { background: var(--c-wayne); }
+.k-total { background: var(--c-total); }
+.k-partner { background: var(--c-partner); }
+.k-other { background: var(--c-other); }
+.k-target { background: var(--c-target); }
+.callout { font-size: 13px; color: var(--ink-2); border-top: 1px solid var(--grid); padding-top: 10px; }
+.callout b { color: var(--ink); font-weight: 600; }
+
+.chart-svg { display: block; overflow: visible; }
+.grid-line { stroke: var(--grid); stroke-width: 1; }
+.axis-line { stroke: var(--axis); stroke-width: 1; }
+.tick { fill: var(--muted); font-size: 11px; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.bar-lucas { fill: var(--c-lucas); }
+.bar-wayne { fill: var(--c-wayne); }
+.bar-other { fill: var(--c-other); }
+.bar-partner { fill: var(--c-partner); }
+.bar-total { fill: var(--c-total); }
+.target-mark { stroke: var(--c-target); stroke-width: 2; stroke-linecap: round; fill: none; }
+.line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.line-total { stroke: var(--c-total); }
+.line-lucas { stroke: var(--c-lucas); }
+.line-wayne { stroke: var(--c-wayne); }
+.line-target { stroke: var(--c-target); stroke-dasharray: 5 4; }
+.dot { stroke: var(--surface); stroke-width: 2; }
+.dot-total { fill: var(--c-total); }
+.dot-lucas { fill: var(--c-lucas); }
+.dot-wayne { fill: var(--c-wayne); }
+.dot-target { fill: var(--c-target); }
+.hover-band { fill: var(--hover); }
+.crosshair { stroke: var(--axis); stroke-width: 1; }
+.hit { fill: transparent; cursor: crosshair; }
+.val-label { fill: var(--ink); font-size: 12px; font-weight: 600; font-family: var(--font); }
+.val-label.soft { fill: var(--ink-2); font-weight: 500; }
+.chart-svg:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+
+.tip {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 24, 38, 0.14);
+  padding: 10px 12px;
+  min-width: 170px;
+  max-width: 260px;
+  font-size: 12px;
+  display: grid;
+  gap: 4px;
+}
+.tip-title { font-weight: 600; font-size: 12px; color: var(--ink-2); margin-bottom: 2px; }
+.tip-row { display: grid; grid-template-columns: 14px auto 1fr; align-items: center; gap: 8px; }
+.tip-row strong { font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 600; }
+.tip-row .tip-label { color: var(--ink-2); }
+.tip-key { width: 12px; height: 3px; border-radius: 2px; }
+.tip-key.none { background: transparent; }
+.tip-key.dash { height: 0; border-top: 2px dashed var(--c-target); background: transparent; }
+.tip-note { color: var(--ink-2); border-top: 1px solid var(--grid); padding-top: 6px; margin-top: 2px; }
+
+.section-head { display: grid; gap: 2px; margin-bottom: 12px; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { padding: 8px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--muted); font-weight: 500; font-size: 12px; background: var(--surface-2); position: sticky; top: 0; }
+tbody td { font-variant-numeric: tabular-nums; }
+tbody tr.future td { color: var(--muted); }
+tfoot td { font-weight: 600; border-bottom: 0; font-variant-numeric: tabular-nums; }
+.name-cell { display: inline-flex; align-items: center; gap: 8px; }
+.name-cell .sw { width: 9px; height: 9px; border-radius: 50%; }
+.fn { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 16px 32px; }
+.check { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }
+.check h3 { font-size: 13px; font-weight: 600; }
+.check p { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+
+.update { display: grid; gap: 14px; }
+.update-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.update-head h2 { font-size: 16px; font-weight: 600; }
+.help { color: var(--ink-2); max-width: 70ch; }
+.drop {
+  display: grid;
+  gap: 4px;
+  place-items: center;
+  text-align: center;
+  padding: 26px 16px;
+  border: 1.5px dashed var(--axis);
+  border-radius: 12px;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.drop:hover, .drop.is-over { border-color: var(--ink-2); background: var(--hover); }
+.drop-main { font-weight: 500; }
+.drop-main u { text-underline-offset: 3px; }
+.drop-sub { color: var(--muted); font-size: 12px; word-break: break-word; }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.drop:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+.update-status { font-size: 13px; color: var(--ink-2); min-height: 1em; }
+.update-status.err { color: var(--critical-ink); }
+.update-status.ok { color: var(--good-ink); }
+.preview { display: grid; gap: 12px; }
+.preview h3 { font-size: 13px; font-weight: 600; }
+.preview ul { margin: 4px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; }
+.preview li { font-variant-numeric: tabular-nums; }
+.update-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.foot { color: var(--muted); font-size: 12px; display: grid; gap: 4px; }
+.foot p { max-width: 110ch; }
+.state-msg { color: var(--ink-2); padding: 28px 0; }
+
+@media (max-width: 980px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpis .hero { grid-column: 1 / -1; }
+  .charts { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .app { padding-inline: 16px; padding-block: 20px 40px; }
+  .kpis { grid-template-columns: minmax(0, 1fr); }
+  h1 { font-size: 24px; }
+  .hero-value { font-size: 44px; }
+  .card { padding: 14px; }
+}
+.publish { display: grid; gap: 10px; padding: 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); }
+.publish h3 { font-size: 13px; font-weight: 600; }
+.publish p { color: var(--ink-2); font-size: 13px; max-width: 75ch; }
+.publish ol { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; display: grid; gap: 2px; }
+.local-flag { color: var(--warning-ink); font-weight: 500; }
+@media (prefers-reduced-motion: no-preference) {
+  .meter > span { transition: width 0.5s ease; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div>
+      <p class="eyebrow">Client acquisition · 2026</p>
+      <h1>FTD tracker</h1>
+      <p class="meta" id="meta">Loading the latest figures…</p>
+    </div>
+    <button type="button" id="update-toggle" class="btn btn-secondary">Update figures</button>
+  </header>
+
+  <section id="update-panel" class="card update" hidden aria-labelledby="update-title">
+    <div class="update-head">
+      <h2 id="update-title">Update figures</h2>
+      <button type="button" id="update-close" class="btn btn-ghost">Close</button>
+    </div>
+    <p class="help">In SharePoint, open the budget sheet and download a copy (File, Create a Copy, Download a Copy), then drop it here. The file is read in your browser and is not uploaded anywhere. You can also drop a data.json file saved from this page.</p>
+    <label class="drop" id="dropzone" for="budget-file">
+      <span class="drop-main">Drop the .xlsx or data.json file here or <u>choose a file</u></span>
+      <span class="drop-sub">(New Data) 2026 TMGM Budget Sheet - Global Team.xlsx</span>
+      <input id="budget-file" type="file" accept=".xlsx,.json,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </label>
+    <p id="update-status" class="update-status" role="status" aria-live="polite"></p>
+    <div id="update-preview" class="preview" hidden></div>
+    <div id="update-actions" class="update-actions" hidden>
+      <button type="button" id="update-save" class="btn btn-primary">Show these figures</button>
+      <button type="button" id="update-discard" class="btn btn-ghost">Discard</button>
+    </div>
+    <div id="publish-box" class="publish" hidden>
+      <h3>Publish for everyone</h3>
+      <p>These figures are showing in this browser only. To update the hosted dashboard, replace data.json in your GitHub repository with the file below.</p>
+      <ol>
+        <li>Choose Download data.json.</li>
+        <li>In the GitHub repository, choose Add file, then Upload files, and drop in data.json.</li>
+        <li>Commit the change. The site shows the new figures within a few minutes.</li>
+      </ol>
+      <div class="update-actions"><button type="button" id="download-json" class="btn btn-primary">Download data.json</button></div>
+    </div>
+  </section>
+
+  <nav class="controls" aria-label="Dashboard controls">
+    <div class="seg" role="tablist" aria-label="View">
+      <button type="button" role="tab" id="tab-retail" data-view="retail" aria-selected="true" aria-controls="view-retail">Retail</button>
+      <button type="button" role="tab" id="tab-partner" data-view="partner" aria-selected="false" aria-controls="view-partner">Partner</button>
+    </div>
+    <div class="filter-wrap" id="source-wrap">
+      <span class="seg-label" id="source-label">Source</span>
+      <div class="seg" id="source-filter" role="group" aria-labelledby="source-label">
+        <button type="button" data-source="all" aria-pressed="true">All retail</button>
+        <button type="button" data-source="lucas" aria-pressed="false"><span class="dot k-lucas"></span>Lucas (ACQ)</button>
+        <button type="button" data-source="wayne" aria-pressed="false"><span class="dot k-wayne"></span>Wayne (Paid Media)</button>
+      </div>
+    </div>
+  </nav>
+
+  <p id="state-msg" class="state-msg" hidden></p>
+
+  <div id="view-retail" role="tabpanel" aria-labelledby="tab-retail" hidden>
+    <div style="display:grid;gap:12px">
+      <div class="kpis" id="r-kpis"></div>
+      <div class="card strip" id="r-strip"></div>
+    </div>
+    <div class="charts" style="margin-top:12px">
+      <section class="card chart-card">
+        <div class="chart-head"><h2 id="c1-title">FTD by month</h2><p id="c1-sub"></p></div>
+        <div class="legend" id="c1-legend"></div>
+        <div class="chart" id="c1"></div>
+      </section>
+      <section class="card chart-card">
+        <div class="chart-head"><h2 id="c2-title">Year to date against plan</h2><p id="c2-sub"></p></div>
+        <div class="legend" id="c2-legend"></div>
+        <div class="chart" id="c2"></div>
+        <p class="callout" id="c2-callout"></p>
+      </section>
+      <section class="card chart-card">
+        <div class="chart-head"><h2 id="c3-title">Spend by month</h2><p id="c3-sub"></p></div>
+        <div class="legend" id="c3-legend"></div>
+        <div class="chart" id="c3"></div>
+      </section>
+      <section class="card chart-card">
+        <div class="chart-head"><h2 id="c4-title">Cost per FTD</h2><p id="c4-sub"></p></div>
+        <div class="legend" id="c4-legend"></div>
+        <div class="chart" id="c4"></div>
+      </section>
+    </div>
+    <section class="card" style="margin-top:12px">
+      <div class="section-head"><h2>By source</h2><p id="src-sub"></p></div>
+      <div class="table-wrap"><table id="src-table"></table></div>
+      <p class="fn" id="src-fn"></p>
+    </section>
+    <section class="card" style="margin-top:12px">
+      <div class="section-head"><h2>Data checks</h2><p>Worked out from the sheet each time it is updated.</p></div>
+      <div class="checks" id="r-checks"></div>
+    </section>
+    <section class="card" style="margin-top:12px">
+      <div class="section-head"><h2>Monthly detail</h2><p id="r-table-sub"></p></div>
+      <div class="table-wrap"><table id="r-table"></table></div>
+    </section>
+  </div>
+
+  <div id="view-partner" role="tabpanel" aria-labelledby="tab-partner" hidden>
+    <div style="display:grid;gap:12px">
+      <div class="kpis" id="p-kpis"></div>
+      <div class="card strip" id="p-strip"></div>
+    </div>
+    <div class="charts" style="margin-top:12px">
+      <section class="card chart-card">
+        <div class="chart-head"><h2>IB accounts by month</h2><p id="c5-sub"></p></div>
+        <div class="legend" id="c5-legend"></div>
+        <div class="chart" id="c5"></div>
+      </section>
+      <section class="card chart-card">
+        <div class="chart-head"><h2>Partner FTD by month</h2><p id="c6-sub"></p></div>
+        <div class="legend" id="c6-legend"></div>
+        <div class="chart" id="c6"></div>
+      </section>
+    </div>
+    <section class="card" style="margin-top:12px">
+      <div class="section-head"><h2>Monthly detail</h2><p id="p-table-sub"></p></div>
+      <div class="table-wrap"><table id="p-table"></table></div>
+    </section>
+    <section class="card" style="margin-top:12px">
+      <div class="section-head"><h2>Data checks</h2><p>Worked out from the sheet each time it is updated.</p></div>
+      <div class="checks" id="p-checks"></div>
+    </section>
+  </div>
+
+  <footer class="foot" id="foot">
+    <p>Retail combines the Lucas (ACQ) and Wayne (Paid Media) tabs, as Master Retail does. Retail FTDs count toward the month the client registered, so recent months keep rising as late deposits land. Partner figures follow Master Partner, which uses verified time, so retail and partner are shown separately and never added together.</p>
+    <p id="foot-source"></p>
+    <p>The page loads its figures from data.json in the same folder. Update figures reads a new budget sheet in your browser and lets you download a fresh data.json to commit.</p>
+  </footer>
+</div>
+
+<div id="tip" class="tip" hidden></div>
+
+<script>
+/* Reads the four 2026 tabs of the Global Team budget sheet by their fixed layout.
+   Shared by the dashboard's "Update from budget sheet" feature and the initial data load. */
+var BudgetParser = (function () {
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var TABS = { lucas: 'Lucas (ACQ)', wayne: 'Wayne (Paid Media)', retail: 'Master Retail', partner: 'Master Partner' };
+
+  function parse(wb, meta) {
+    var errors = [];
+    var sheets = (wb && wb.Sheets) || {};
+    Object.keys(TABS).forEach(function (k) {
+      if (!sheets[TABS[k]]) errors.push('The file has no “' + TABS[k] + '” tab.');
+    });
+    if (errors.length) return { errors: errors };
+
+    function raw(tab, ref) { var c = sheets[tab][ref]; return c ? c.v : undefined; }
+    function num(tab, ref) { var x = raw(tab, ref); return (typeof x === 'number' && isFinite(x)) ? x : null; }
+    function text(tab, ref) { var x = raw(tab, ref); return x == null ? '' : String(x).trim(); }
+
+    var headers = [
+      [TABS.lucas, 'B4', 'Spend (USD)'], [TABS.lucas, 'E4', 'FTD'],
+      [TABS.wayne, 'B4', 'Spend (USD)'], [TABS.wayne, 'E4', 'FTD'],
+      [TABS.retail, 'B2', 'Spend (USD)'], [TABS.retail, 'E2', 'FTD'],
+      [TABS.retail, 'P2', 'Spend (USD)'], [TABS.retail, 'T2', 'FTD'],
+      [TABS.partner, 'C2', 'IB Accounts'], [TABS.partner, 'F2', 'FTD'], [TABS.partner, 'S2', 'IB Accounts']
+    ];
+    headers.forEach(function (h) {
+      var got = text(h[0], h[1]);
+      if (got.toLowerCase() !== h[2].toLowerCase()) {
+        errors.push(h[0] + ' ' + h[1] + ' should read “' + h[2] + '” but reads “' + (got || 'nothing') +
+          '”. The sheet layout has changed, so the dashboard cannot read it safely.');
+      }
+    });
+    if (errors.length) return { errors: errors };
+
+    function col(tab, letter, first) {
+      var out = [];
+      for (var i = 0; i < 12; i++) out.push(num(tab, letter + (first + i)));
+      return out;
+    }
+    function source(tab) {
+      return {
+        spend: col(tab, 'B', 5), finalised: col(tab, 'C', 5), kyc: col(tab, 'D', 5), ftd: col(tab, 'E', 5),
+        ftdAmt: col(tab, 'F', 5), gross: col(tab, 'G', 5), net: col(tab, 'H', 5)
+      };
+    }
+
+    var labelIssues = [];
+    [[TABS.lucas, 5], [TABS.wayne, 5], [TABS.retail, 3], [TABS.partner, 3]].forEach(function (t) {
+      for (var i = 0; i < 12; i++) {
+        var ref = 'A' + (t[1] + i);
+        var got = text(t[0], ref);
+        if (got && got !== MONTHS[i]) labelIssues.push({ tab: t[0], ref: ref, found: got, expected: MONTHS[i] });
+      }
+    });
+
+    var saved = meta && meta.fileSavedAt;
+    if (!saved && wb.Props && wb.Props.ModifiedDate) {
+      var md = wb.Props.ModifiedDate;
+      saved = (md instanceof Date) ? md.toISOString() : String(md);
+    }
+
+    return {
+      errors: [],
+      data: {
+        schema: 1,
+        months: MONTHS.slice(),
+        retail: {
+          lucas: source(TABS.lucas),
+          wayne: source(TABS.wayne),
+          reportedSpend: col(TABS.retail, 'B', 3),
+          sheetFtd: col(TABS.retail, 'E', 3),
+          target: {
+            spend: col(TABS.retail, 'P', 3), finalised: col(TABS.retail, 'R', 3), kyc: col(TABS.retail, 'S', 3),
+            ftd: col(TABS.retail, 'T', 3), ftdAmt: col(TABS.retail, 'U', 3), gross: col(TABS.retail, 'V', 3),
+            net: col(TABS.retail, 'W', 3), cpftd: col(TABS.retail, 'AC', 3)
+          }
+        },
+        partner: {
+          spend: col(TABS.partner, 'B', 3), ib: col(TABS.partner, 'C', 3), finalised: col(TABS.partner, 'D', 3),
+          kyc: col(TABS.partner, 'E', 3), ftd: col(TABS.partner, 'F', 3), ftdAmt: col(TABS.partner, 'G', 3),
+          gross: col(TABS.partner, 'H', 3), net: col(TABS.partner, 'I', 3), ibTarget: col(TABS.partner, 'S', 3)
+        },
+        labelIssues: labelIssues,
+        source: { fileName: (meta && meta.fileName) || null, fileSavedAt: saved || null },
+        updatedAt: (meta && meta.updatedAt) || new Date().toISOString(),
+        updatedVia: (meta && meta.updatedVia) || 'upload'
+      }
+    };
+  }
+
+  return { parse: parse, MONTHS: MONTHS, TABS: TABS };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = BudgetParser;
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  var SOURCES = {
+    all: { name: 'All retail', short: 'Retail', key: 'total' },
+    lucas: { name: 'Lucas (ACQ)', short: 'Lucas (ACQ)', key: 'lucas' },
+    wayne: { name: 'Wayne (Paid Media)', short: 'Wayne (Paid Media)', key: 'wayne' }
+  };
+  var ICONS = {
+    good: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    warning: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.2L14.6 13.5H1.4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.5v3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.6" r="0.9" fill="currentColor"/></svg>',
+    serious: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3v9M4 8.5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    critical: '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.8 5.8l4.4 4.4M10.2 5.8l-4.4 4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    info: '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 7.3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="5" r="0.95" fill="currentColor"/></svg>',
+    up: '<svg viewBox="0 0 16 16" aria-hidden="true" width="12" height="12"><path d="M8 13V4M4 7.5l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    down: '<svg viewBox="0 0 16 16" aria-hidden="true" width="12" height="12"><path d="M8 3v9M4 8.5l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+  var CHIP_WORD = { good: 'OK', warning: 'Check', critical: 'Fix', info: 'Note', serious: 'Behind' };
+
+  var state = { data: null, view: 'retail', source: 'all', local: false, pending: null };
+
+  /* ---------- helpers ---------- */
+  function $(sel) { return document.querySelector(sel); }
+  function h(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  var nf0 = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+  function fInt(v) { return v == null || !isFinite(v) ? '–' : nf0.format(Math.round(v)); }
+  function fMoney(v, compact) {
+    if (v == null || !isFinite(v)) return '–';
+    var a = Math.abs(v), s = v < 0 ? '−' : '';
+    if (compact) {
+      if (a >= 1e6) return s + '$' + (a / 1e6).toFixed(a >= 1e7 ? 1 : 2) + 'M';
+      if (a >= 1e4) return s + '$' + (a / 1e3).toFixed(1) + 'K';
+    }
+    return s + '$' + nf0.format(Math.round(a));
+  }
+  function fPct(v) { return v == null || !isFinite(v) ? '–' : Math.round(v * 100) + '%'; }
+  function fSigned(v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + nf0.format(Math.abs(Math.round(v))); }
+  function lastIdx(pred) { var l = -1; for (var i = 0; i < 12; i++) if (pred(i)) l = i; return l; }
+  function sumTo(a, n) { var s = 0; for (var i = 0; i <= n; i++) s += (a[i] || 0); return s; }
+  function span(last) { return 'Jan–' + MONTHS[last]; }
+  function monthList(idx) {
+    // "Jan–May" for a run, otherwise comma list
+    if (!idx.length) return '';
+    var runs = [], start = idx[0], prev = idx[0];
+    for (var k = 1; k <= idx.length; k++) {
+      if (k < idx.length && idx[k] === prev + 1) { prev = idx[k]; continue; }
+      runs.push(start === prev ? MONTHS[start] : MONTHS[start] + '–' + MONTHS[prev]);
+      if (k < idx.length) { start = idx[k]; prev = idx[k]; }
+    }
+    return runs.join(', ');
+  }
+  function fmtDate(iso, withTime) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    var s = d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+    if (withTime) s += ', ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    return s;
+  }
+  function chip(level, label) {
+    var c = h('span', 'chip ' + level);
+    c.innerHTML = ICONS[level] || ICONS.info; // constant markup only
+    c.appendChild(document.createTextNode(label));
+    return c;
+  }
+
+  /* ---------- derived figures ---------- */
+  function retailOf(d, source) {
+    var L = d.retail.lucas, W = d.retail.wayne, T = d.retail.target;
+    var last = lastIdx(function (i) { return L.ftd[i] != null || W.ftd[i] != null; });
+    function pick(k) {
+      return MONTHS.map(function (_, i) {
+        if (i > last) return null;
+        if (source === 'lucas') return L[k][i] || 0;
+        if (source === 'wayne') return W[k][i] || 0;
+        return (L[k][i] || 0) + (W[k][i] || 0);
+      });
+    }
+    var tabsSpend = pick('spend');
+    var spend = MONTHS.map(function (_, i) {
+      if (i > last) return null;
+      if (source !== 'all') return tabsSpend[i];
+      var r = d.retail.reportedSpend[i];
+      return r != null ? r : (L.spend[i] || 0) + (W.spend[i] || 0);
+    });
+    var other = MONTHS.map(function (_, i) {
+      if (i > last) return null;
+      var r = d.retail.reportedSpend[i];
+      if (r == null) return 0;
+      var o = r - (L.spend[i] || 0) - (W.spend[i] || 0);
+      return o >= 1 ? o : 0;
+    });
+    var r = {
+      last: last,
+      ftd: pick('ftd'), kyc: pick('kyc'), fin: pick('finalised'), amt: pick('ftdAmt'), gross: pick('gross'), net: pick('net'),
+      spend: spend, other: other,
+      lucasFtd: L.ftd.map(function (v, i) { return i > last ? null : (v || 0); }),
+      wayneFtd: W.ftd.map(function (v, i) { return i > last ? null : (v || 0); }),
+      lucasSpend: L.spend.map(function (v, i) { return i > last ? null : (v || 0); }),
+      wayneSpend: W.spend.map(function (v, i) { return i > last ? null : (v || 0); }),
+      target: T
+    };
+    r.cum = []; var c = 0;
+    for (var i = 0; i < 12; i++) { if (i <= last) { c += r.ftd[i]; r.cum.push(c); } else r.cum.push(null); }
+    r.planCum = []; c = 0;
+    for (i = 0; i < 12; i++) { c += (T.ftd[i] || 0); r.planCum.push(T.ftd[i] == null ? null : c); }
+    r.cpftd = r.ftd.map(function (f, i) { return i > last || !f ? null : r.spend[i] / f; });
+    r.ytd = {
+      ftd: sumTo(r.ftd, last), kyc: sumTo(r.kyc, last), fin: sumTo(r.fin, last), amt: sumTo(r.amt, last),
+      gross: sumTo(r.gross, last), net: sumTo(r.net, last), spend: sumTo(r.spend, last)
+    };
+    r.plan = {
+      ftdYtd: sumTo(T.ftd, last), ftdFy: sumTo(T.ftd, 11), spendYtd: sumTo(T.spend, last), spendFy: sumTo(T.spend, 11)
+    };
+    return r;
+  }
+  function partnerOf(d) {
+    var P = d.partner;
+    var last = lastIdx(function (i) { return P.ftd[i] != null || P.ib[i] != null; });
+    function cut(a) { return a.map(function (v, i) { return i > last ? null : (v || 0); }); }
+    var p = { last: last, ib: cut(P.ib), ftd: cut(P.ftd), fin: cut(P.finalised), kyc: cut(P.kyc), amt: cut(P.ftdAmt), gross: cut(P.gross), net: cut(P.net), spend: cut(P.spend), ibTarget: P.ibTarget };
+    p.ytd = { ib: sumTo(p.ib, last), ftd: sumTo(p.ftd, last), fin: sumTo(p.fin, last), kyc: sumTo(p.kyc, last), amt: sumTo(p.amt, last), gross: sumTo(p.gross, last), net: sumTo(p.net, last), spend: sumTo(p.spend, last) };
+    p.plan = { ibYtd: sumTo(P.ibTarget, last), ibFy: sumTo(P.ibTarget, 11) };
+    return p;
+  }
+
+  /* ---------- data checks ---------- */
+  function computeChecks(d) {
+    var L = d.retail.lucas, W = d.retail.wayne;
+    var all = retailOf(d, 'all'), last = all.last, pp = partnerOf(d);
+    var out = [];
+    var mism = [];
+    for (var i = 0; i <= last; i++) {
+      var tot = (L.ftd[i] || 0) + (W.ftd[i] || 0), sh = d.retail.sheetFtd[i];
+      if (sh != null && Math.abs(sh - tot) > 0.5) mism.push(MONTHS[i] + ' (sheet ' + fInt(sh) + ', tabs ' + fInt(tot) + ')');
+    }
+    if (mism.length) out.push({ level: 'critical', title: 'Master Retail FTD does not match the two tabs', text: 'Differences in ' + mism.join(', ') + '.' });
+
+    var diffIdx = [], diffSum = 0;
+    for (i = 0; i <= last; i++) {
+      var rep = d.retail.reportedSpend[i];
+      if (rep == null) continue;
+      var df = rep - (L.spend[i] || 0) - (W.spend[i] || 0);
+      if (Math.abs(df) >= 1) { diffIdx.push(i); diffSum += df; }
+    }
+    if (diffIdx.length) {
+      var consistent = sumTo(all.lucasSpend, last) + sumTo(all.wayneSpend, last);
+      out.push({
+        level: 'warning', title: 'Spend is counted two ways',
+        text: 'Reported spend for ' + monthList(diffIdx) + ' is typed in and includes ' + fMoney(diffSum) +
+          ' of costs outside the two tabs. Other months equal Lucas + Wayne. Counted the same way all year, ' + span(last) +
+          ' spend is ' + fMoney(consistent) + ' and cost per FTD is ' + fMoney(all.ytd.ftd ? consistent / all.ytd.ftd : null) + '.'
+      });
+    }
+
+    [['lucas', L], ['wayne', W]].forEach(function (s) {
+      var vals = s[1].spend.slice(0, last + 1).filter(function (v) { return v != null; });
+      if (vals.length >= 3 && vals.every(function (v) { return v === vals[0]; })) {
+        out.push({ level: 'warning', title: SOURCES[s[0]].name + ' spend never changes', text: 'It is ' + fMoney(vals[0]) + ' in every month. Check it covers all of the team’s costs, not one fixed fee.' });
+      }
+    });
+
+    [['lucas', L], ['wayne', W]].forEach(function (s) {
+      var hi = [], lo = [];
+      for (var j = 0; j <= last; j++) {
+        var k = s[1].kyc[j], f = s[1].ftd[j];
+        if (!k || f == null) continue;
+        var rate = f / k;
+        if (rate > 1) hi.push({ i: j, r: rate, over: true });
+        else if (rate > 0.6) hi.push({ i: j, r: rate });
+        else lo.push(rate);
+      }
+      if (hi.length) {
+        var parts = hi.map(function (x) { return fPct(x.r) + ' in ' + MONTHS[x.i]; }).join(', ');
+        var range = lo.length ? ', against ' + Math.round(Math.min.apply(null, lo) * 100) + '–' + Math.round(Math.max.apply(null, lo) * 100) + '% in other months' : '';
+        out.push({ level: 'warning', title: SOURCES[s[0]].name + ': KYC to FTD looks too high', text: 'It is ' + parts + range + '. Check the KYC counts for those months before quoting conversion.' });
+      }
+    });
+
+    if (d.labelIssues && d.labelIssues.length) {
+      out.push({
+        level: 'warning', title: 'Month labels need fixing',
+        text: d.labelIssues.map(function (x) { return x.tab + ' ' + x.ref + ' reads “' + x.found + '” instead of ' + x.expected; }).join('; ') + '. The figures are not affected.'
+      });
+    }
+    if (last >= 0) out.push({ level: 'info', title: MONTHS_LONG[last] + ' will still rise', text: 'FTDs count toward the month the client registered, so the latest months grow at each update.' });
+    if (pp.last >= 0 && pp.last < last) out.push({ level: 'info', title: 'Partner figures run to ' + MONTHS[pp.last], text: 'Retail runs to ' + MONTHS[last] + '. ' + MONTHS_LONG[pp.last + 1] + ' partner figures are not in the sheet yet.' });
+    if (pp.last >= 0 && pp.ytd.spend === 0) out.push({ level: 'info', title: 'Partner spend is not recorded', text: 'Master Partner shows $0 spend in every month, so partner cost figures are left out.' });
+    if (!mism.length && last >= 0) out.push({ level: 'good', title: 'Master Retail FTD matches the two tabs', text: 'Every month from Jan to ' + MONTHS[last] + ' equals Lucas (ACQ) + Wayne (Paid Media).' });
+    var rank = { critical: 0, warning: 1, info: 2, good: 3 };
+    out.sort(function (a, b) { return rank[a.level] - rank[b.level]; });
+    return out;
+  }
+  function renderChecks(container, checks, filter) {
+    container.replaceChildren();
+    checks.filter(filter || function () { return true; }).forEach(function (c) {
+      var row = h('div', 'check');
+      row.appendChild(chip(c.level, CHIP_WORD[c.level]));
+      var body = h('div');
+      body.appendChild(h('h3', null, c.title));
+      body.appendChild(h('p', null, c.text));
+      row.appendChild(body);
+      container.appendChild(row);
+    });
+  }
+
+  /* ---------- charts ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function sv(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var mctx = document.createElement('canvas').getContext('2d');
+  function textW(s, size, weight) {
+    mctx.font = (weight || 400) + ' ' + (size || 11) + 'px "IBM Plex Sans", system-ui, sans-serif';
+    return mctx.measureText(s).width;
+  }
+  function scaleY(max) {
+    var raw = max > 0 ? max / 4 : 1;
+    var p = Math.pow(10, Math.floor(Math.log10(raw)));
+    var m = raw / p;
+    var step = (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p;
+    var top = Math.max(step, Math.ceil(max / step - 1e-9) * step);
+    var ticks = [];
+    for (var t = 0; t <= top + step / 1e6; t += step) ticks.push(Math.round(t * 1e6) / 1e6);
+    return { top: top, ticks: ticks };
+  }
+  function barPath(x, yTop, w, yBot, r) {
+    var ht = yBot - yTop;
+    if (ht <= 0.5) return null;
+    r = Math.min(r, ht, w / 2);
+    if (r <= 0.5) return 'M' + x + ',' + yBot + 'V' + yTop + 'H' + (x + w) + 'V' + yBot + 'Z';
+    return 'M' + x + ',' + yBot + 'V' + (yTop + r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + r) + ',' + yTop +
+      'H' + (x + w - r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + w) + ',' + (yTop + r) + 'V' + yBot + 'Z';
+  }
+
+  var tip = null;
+  function showTip(content, x, y) {
+    tip.replaceChildren();
+    tip.appendChild(h('div', 'tip-title', content.title));
+    content.rows.forEach(function (r) {
+      var row = h('div', 'tip-row');
+      var key = h('span', 'tip-key ' + (r.key || 'none'));
+      if (r.cls) key.classList.add(r.cls);
+      row.appendChild(key);
+      row.appendChild(h('strong', null, r.value));
+      row.appendChild(h('span', 'tip-label', r.label));
+      tip.appendChild(row);
+    });
+    if (content.note) tip.appendChild(h('div', 'tip-note', content.note));
+    tip.hidden = false;
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    var left = x + 16, top = y + 14;
+    if (left + tw > vw - 8) left = x - tw - 16;
+    if (left < 8) left = 8;
+    if (top + th > vh - 8) top = y - th - 14;
+    if (top < 8) top = 8;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hideTip() { if (tip) tip.hidden = true; }
+
+  function frame(container, cfg, maxVal) {
+    container.replaceChildren();
+    var W = Math.max(280, Math.floor(container.clientWidth || 600));
+    var H = cfg.height || 250;
+    var sc = scaleY(maxVal);
+    var labels = sc.ticks.map(cfg.yFmt);
+    var left = Math.ceil(Math.max.apply(null, labels.map(function (s) { return textW(s, 11); }))) + 12;
+    var m = { t: 16, r: cfg.rightPad || 8, b: 26, l: left };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b;
+    var svg = sv('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, 'class': 'chart-svg', role: 'img', tabindex: '0', 'aria-label': cfg.aria }, container);
+    function y(v) { return m.t + ph - (v / sc.top) * ph; }
+    var band = pw / 12;
+    function cx(i) { return m.l + band * (i + 0.5); }
+    var g = sv('g', {}, svg);
+    sc.ticks.forEach(function (t, k) {
+      var yy = Math.round(y(t)) + 0.5;
+      sv('line', { x1: m.l, x2: W - m.r, y1: yy, y2: yy, 'class': t === 0 ? 'axis-line' : 'grid-line' }, g);
+      sv('text', { x: m.l - 8, y: yy + 4, 'class': 'tick', 'text-anchor': 'end' }, g).textContent = labels[k];
+    });
+    var short = band < 30;
+    MONTHS.forEach(function (mn, i) {
+      sv('text', { x: cx(i), y: H - 7, 'class': 'tick', 'text-anchor': 'middle' }, g).textContent = short ? mn.charAt(0) : mn;
+    });
+    var hover = sv('rect', { x: 0, y: m.t, width: band, height: ph, 'class': 'hover-band', visibility: 'hidden' }, svg);
+    var marks = sv('g', {}, svg);
+    return { svg: svg, W: W, H: H, m: m, pw: pw, ph: ph, y: y, band: band, cx: cx, top: sc.top, hover: hover, marks: marks };
+  }
+  function interact(f, cfg, mode) {
+    var cross = null;
+    if (mode === 'line') cross = sv('line', { x1: 0, x2: 0, y1: f.m.t, y2: f.m.t + f.ph, 'class': 'crosshair', visibility: 'hidden' }, f.svg);
+    var cur = Math.max(0, cfg.focusIndex == null ? 0 : cfg.focusIndex);
+    function on(i, ev) {
+      cur = i;
+      if (mode === 'line') {
+        cross.setAttribute('x1', f.cx(i)); cross.setAttribute('x2', f.cx(i)); cross.setAttribute('visibility', 'visible');
+      } else {
+        f.hover.setAttribute('x', f.m.l + f.band * i); f.hover.setAttribute('visibility', 'visible');
+      }
+      var content = cfg.tip(i);
+      if (!content) { hideTip(); return; }
+      if (ev) showTip(content, ev.clientX, ev.clientY);
+      else {
+        var r = f.svg.getBoundingClientRect();
+        showTip(content, r.left + f.cx(i), r.top + f.m.t + 8);
+      }
+    }
+    function off() {
+      f.hover.setAttribute('visibility', 'hidden');
+      if (cross) cross.setAttribute('visibility', 'hidden');
+      hideTip();
+    }
+    for (var i = 0; i < 12; i++) {
+      (function (i) {
+        var hit = sv('rect', { x: f.m.l + f.band * i, y: f.m.t, width: f.band, height: f.ph, 'class': 'hit' }, f.svg);
+        hit.addEventListener('pointerenter', function (e) { on(i, e); });
+        hit.addEventListener('pointermove', function (e) {
+          if (tip.hidden) return;
+          var c = cfg.tip(i);
+          if (c) showTip(c, e.clientX, e.clientY); else hideTip();
+        });
+        hit.addEventListener('pointerleave', off);
+      })(i);
+    }
+    f.svg.addEventListener('focus', function () { on(cur); });
+    f.svg.addEventListener('blur', off);
+    f.svg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { on(Math.min(11, cur + 1)); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { on(Math.max(0, cur - 1)); e.preventDefault(); }
+      else if (e.key === 'Escape') { off(); }
+    });
+  }
+
+  function columnChart(container, cfg) {
+    var maxVal = 0;
+    for (var i = 0; i < 12; i++) {
+      var s = 0;
+      cfg.series.forEach(function (se) { s += Math.max(0, se.values[i] || 0); });
+      maxVal = Math.max(maxVal, s);
+      if (cfg.target && cfg.target.values[i] != null) maxVal = Math.max(maxVal, cfg.target.values[i]);
+    }
+    var f = frame(container, cfg, maxVal * 1.08);
+    var bw = Math.min(24, f.band * 0.62);
+    for (i = 0; i < 12; i++) {
+      var base = 0, topIdx = -1;
+      cfg.series.forEach(function (se, k) { if ((se.values[i] || 0) > 0) topIdx = k; });
+      var x = f.cx(i) - bw / 2;
+      cfg.series.forEach(function (se, k) {
+        var v = se.values[i];
+        if (!v || v <= 0) return;
+        var yTop = f.y(base + v), yBot = f.y(base) - (base > 0 ? 2 : 0);
+        var d = barPath(x, yTop, bw, yBot, k === topIdx ? 4 : 0);
+        if (d) sv('path', { d: d, 'class': se.cls }, f.marks);
+        base += v;
+      });
+      if (cfg.target && cfg.target.values[i] != null) {
+        var ty = Math.round(f.y(cfg.target.values[i])) + 0.5;
+        sv('line', { x1: f.cx(i) - bw / 2 - 5, x2: f.cx(i) + bw / 2 + 5, y1: ty, y2: ty, 'class': 'target-mark' }, f.marks);
+      }
+    }
+    if (cfg.labelIndex != null && cfg.labelIndex >= 0) {
+      var li = cfg.labelIndex, tot = 0;
+      cfg.series.forEach(function (se) { tot += Math.max(0, se.values[li] || 0); });
+      if (tot > 0) {
+        var ly = f.y(tot) - 7;
+        if (cfg.target && cfg.target.values[li] != null && Math.abs(f.y(cfg.target.values[li]) - ly) < 12) ly = Math.min(ly, f.y(cfg.target.values[li]) - 8);
+        sv('text', { x: f.cx(li), y: Math.max(f.m.t - 2, ly), 'class': 'val-label', 'text-anchor': 'middle' }, f.marks).textContent = cfg.labelFmt(tot);
+      }
+    }
+    interact(f, cfg, 'bar');
+  }
+
+  function lineChart(container, cfg) {
+    var maxVal = 0;
+    cfg.series.forEach(function (se) { se.values.forEach(function (v) { if (v != null) maxVal = Math.max(maxVal, v); }); });
+    var f = frame(container, cfg, maxVal * 1.08);
+    cfg.series.forEach(function (se) {
+      var d = '', pen = false;
+      for (var i = 0; i < 12; i++) {
+        var v = se.values[i];
+        if (v == null) { pen = false; continue; }
+        d += (pen ? 'L' : 'M') + f.cx(i).toFixed(1) + ',' + f.y(v).toFixed(1);
+        pen = true;
+      }
+      if (d) sv('path', { d: d, 'class': 'line ' + se.cls }, f.marks);
+    });
+    cfg.series.forEach(function (se) {
+      if (!se.endLabel) return;
+      var li = lastIdx(function (i) { return se.values[i] != null; });
+      if (li < 0) return;
+      var px = f.cx(li), py = f.y(se.values[li]);
+      if (se.dot) sv('circle', { cx: px, cy: py, r: 4, 'class': 'dot ' + se.dot }, f.marks);
+      var txt = se.endLabel(se.values[li]);
+      var anchor = li >= 10 ? 'end' : 'start';
+      var tx = anchor === 'end' ? px - 8 : px + 8;
+      var ty = py + (se.labelDy || 4);
+      if (ty < f.m.t + 4) ty = py + 16;
+      sv('text', { x: tx, y: ty, 'class': 'val-label' + (se.soft ? ' soft' : ''), 'text-anchor': anchor }, f.marks).textContent = txt;
+    });
+    interact(f, cfg, 'line');
+  }
+
+  function legend(container, items) {
+    container.replaceChildren();
+    items.forEach(function (it) {
+      var s = h('span');
+      var sw = h('i', 'sw ' + it.shape + (it.cls ? ' ' + it.cls : ''));
+      s.appendChild(sw);
+      s.appendChild(document.createTextNode(it.label));
+      container.appendChild(s);
+    });
+    container.hidden = !items.length;
+  }
+
+  /* ---------- tiles ---------- */
+  function tile(opts) {
+    var t = h('article', 'card tile' + (opts.hero ? ' hero' : ''));
+    t.appendChild(h('p', 'tile-label', opts.label));
+    if (opts.hero) {
+      var row = h('div', 'hero-row');
+      row.appendChild(h('p', 'hero-value', opts.value));
+      if (opts.chip) row.appendChild(chip(opts.chip[0], opts.chip[1]));
+      t.appendChild(row);
+    } else {
+      var vr = h('div', 'hero-row');
+      vr.appendChild(h('p', 'tile-value', opts.value));
+      if (opts.chip) vr.appendChild(chip(opts.chip[0], opts.chip[1]));
+      t.appendChild(vr);
+    }
+    if (opts.delta) {
+      var dl = h('p', 'tile-delta ' + opts.delta.dir);
+      if (opts.delta.dir !== 'flat') dl.innerHTML = ICONS[opts.delta.dir]; // constant markup only
+      dl.appendChild(document.createTextNode(opts.delta.text));
+      t.appendChild(dl);
+    }
+    if (opts.meter) {
+      var mt = h('div', 'meter');
+      mt.setAttribute('role', 'img');
+      mt.setAttribute('aria-label', opts.meter.aria);
+      mt.style.setProperty('--m-fill', opts.meter.fill);
+      mt.style.setProperty('--m-track', opts.meter.track);
+      var fill = h('span');
+      mt.appendChild(fill);
+      t.appendChild(mt);
+      requestAnimationFrame(function () { fill.style.width = Math.max(0, Math.min(100, opts.meter.pct * 100)) + '%'; });
+    }
+    (opts.subs || []).forEach(function (s) { t.appendChild(h('p', 'tile-sub', s)); });
+    return t;
+  }
+  function stripItems(container, items) {
+    container.replaceChildren();
+    items.forEach(function (it) {
+      var s = h('span');
+      s.appendChild(h('b', null, it[0]));
+      s.appendChild(document.createTextNode(it[1]));
+      container.appendChild(s);
+    });
+  }
+
+  /* ---------- tables ---------- */
+  function table(el, head, rows, foot, futureFrom) {
+    el.replaceChildren();
+    var th = h('thead'), tr = h('tr');
+    head.forEach(function (c) { tr.appendChild(h('th', null, c)); });
+    th.appendChild(tr); el.appendChild(th);
+    var tb = h('tbody');
+    rows.forEach(function (r, i) {
+      var row = h('tr');
+      if (futureFrom != null && i >= futureFrom) row.className = 'future';
+      r.forEach(function (c) {
+        var td = h('td');
+        if (c && typeof c === 'object' && c.node) td.appendChild(c.node); else td.textContent = c == null ? '' : c;
+        row.appendChild(td);
+      });
+      tb.appendChild(row);
+    });
+    el.appendChild(tb);
+    if (foot) {
+      var tf = h('tfoot'), fr = h('tr');
+      foot.forEach(function (c) { fr.appendChild(h('td', null, c)); });
+      tf.appendChild(fr); el.appendChild(tf);
+    }
+  }
+  function nameCell(label, cls) {
+    var s = h('span', 'name-cell');
+    s.appendChild(h('i', 'sw ' + cls));
+    s.appendChild(document.createTextNode(label));
+    return { node: s };
+  }
+
+  /* ---------- render: retail ---------- */
+  function renderRetail() {
+    var d = state.data, src = state.source, isAll = src === 'all';
+    var r = retailOf(d, src), all = retailOf(d, 'all'), last = r.last;
+    var T = d.retail.target;
+    var srcKey = SOURCES[src].key;
+    var lineCls = 'line-' + srcKey, dotCls = 'dot-' + srcKey, barCls = 'bar-' + srcKey;
+
+    /* tiles */
+    var k = $('#r-kpis');
+    k.replaceChildren();
+    if (last < 0) { k.appendChild(h('p', 'state-msg', 'No retail figures in the sheet yet.')); return; }
+    if (isAll) {
+      var pct = r.plan.ftdYtd ? r.ytd.ftd / r.plan.ftdYtd : null;
+      var st = pct == null ? null : pct >= 1 ? ['good', 'On plan'] : pct >= 0.9 ? ['warning', 'Close to plan'] : ['serious', 'Behind plan'];
+      var stColor = st ? (st[0] === 'good' ? 'var(--good)' : st[0] === 'warning' ? 'var(--warning)' : 'var(--serious)') : 'var(--c-total)';
+      var stTrack = st ? 'var(--' + st[0] + '-bg)' : 'var(--grid)';
+      k.appendChild(tile({
+        hero: true, label: 'Retail FTD, ' + span(last) + ' 2026', value: fInt(r.ytd.ftd), chip: st,
+        meter: { pct: pct || 0, fill: stColor, track: stTrack, aria: fPct(pct) + ' of the ' + span(last) + ' target' },
+        subs: [fPct(pct) + ' of the ' + span(last) + ' target of ' + fInt(r.plan.ftdYtd), fPct(r.ytd.ftd / r.plan.ftdFy) + ' of the full-year target of ' + fInt(r.plan.ftdFy)]
+      }));
+    } else {
+      var share = all.ytd.ftd ? r.ytd.ftd / all.ytd.ftd : null;
+      k.appendChild(tile({
+        hero: true, label: SOURCES[src].name + ' FTD, ' + span(last) + ' 2026', value: fInt(r.ytd.ftd),
+        meter: { pct: share || 0, fill: 'var(--c-' + srcKey + ')', track: 'var(--grid)', aria: fPct(share) + ' of retail FTD' },
+        subs: [fPct(share) + ' of retail FTD (' + fInt(all.ytd.ftd) + ')', 'Targets are set for retail as a whole, not per source.']
+      }));
+    }
+    var cur = r.ftd[last], prev = last > 0 ? r.ftd[last - 1] : null;
+    var delta = prev == null ? null : cur - prev;
+    var subsM = [];
+    if (isAll && T.ftd[last]) subsM.push(fPct(cur / T.ftd[last]) + ' of the ' + fInt(T.ftd[last]) + ' target');
+    if (!isAll && all.ftd[last]) subsM.push(fPct(cur / all.ftd[last]) + ' of retail FTD this month');
+    subsM.push('Still rising as late deposits land.');
+    k.appendChild(tile({
+      label: MONTHS_LONG[last] + ' FTD', value: fInt(cur),
+      delta: delta == null ? null : { dir: delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat', text: fSigned(delta) + ' vs ' + MONTHS_LONG[last - 1] },
+      subs: subsM
+    }));
+    var spendSubs = [];
+    if (isAll) spendSubs.push(fPct(r.ytd.spend / r.plan.spendYtd) + ' of the ' + fMoney(r.plan.spendYtd, true) + ' budget for ' + span(last));
+    else {
+      var sv0 = d.retail[src].spend.slice(0, last + 1).filter(function (v) { return v != null; });
+      if (sv0.length > 2 && sv0.every(function (v) { return v === sv0[0]; })) spendSubs.push('The same ' + fMoney(sv0[0]) + ' every month');
+      else spendSubs.push(fPct(r.ytd.spend / (sumTo(all.lucasSpend, last) + sumTo(all.wayneSpend, last))) + ' of Lucas + Wayne spend');
+    }
+    k.appendChild(tile({ label: 'Spend, ' + span(last), value: fMoney(r.ytd.spend, true), subs: spendSubs }));
+    var cp = r.ytd.ftd ? r.ytd.spend / r.ytd.ftd : null;
+    var cpSubs = [], cpChip = null;
+    if (isAll) {
+      var cpPlan = r.plan.ftdYtd ? r.plan.spendYtd / r.plan.ftdYtd : null;
+      cpSubs.push('Plan for ' + span(last) + ': ' + fMoney(cpPlan));
+      if (cp != null && cpPlan != null) cpChip = cp <= cpPlan ? ['good', 'Below plan'] : ['serious', 'Above plan'];
+    } else {
+      cpSubs.push('Retail overall: ' + fMoney(all.ytd.ftd ? all.ytd.spend / all.ytd.ftd : null));
+    }
+    k.appendChild(tile({ label: 'Cost per FTD, ' + span(last), value: fMoney(cp), chip: cpChip, subs: cpSubs }));
+
+    stripItems($('#r-strip'), [
+      [fMoney(r.ytd.amt, true), 'FTD amount'],
+      [fMoney(r.ytd.gross, true), 'gross deposit'],
+      [fMoney(r.ytd.net, true), 'net deposit'],
+      [fInt(r.ytd.kyc), 'KYC'],
+      [fPct(r.ytd.kyc ? r.ytd.ftd / r.ytd.kyc : null), 'KYC to FTD']
+    ]);
+
+    /* chart 1: FTD by month */
+    $('#c1-title').textContent = isAll ? 'FTD by month' : SOURCES[src].name + ' FTD by month';
+    $('#c1-sub').textContent = isAll ? 'Stacked by source, against the monthly target.' : 'Monthly FTD for this source.';
+    var s1 = isAll ? [
+      { cls: 'bar-lucas', values: r.lucasFtd, label: 'Lucas (ACQ)' },
+      { cls: 'bar-wayne', values: r.wayneFtd, label: 'Wayne (Paid Media)' }
+    ] : [{ cls: barCls, values: r.ftd, label: SOURCES[src].name }];
+    legend($('#c1-legend'), isAll ? [
+      { shape: 'bar', cls: 'k-lucas', label: 'Lucas (ACQ)' },
+      { shape: 'bar', cls: 'k-wayne', label: 'Wayne (Paid Media)' },
+      { shape: 'mark', label: 'Monthly target' }
+    ] : []);
+    columnChart($('#c1'), {
+      aria: 'FTD by month, ' + span(last) + '. ' + MONTHS[last] + ': ' + fInt(r.ftd[last]) + '.',
+      series: s1, target: isAll ? { values: T.ftd } : null, yFmt: fInt, labelIndex: last, labelFmt: fInt, focusIndex: last,
+      tip: function (i) {
+        var rows = [];
+        if (i <= last) {
+          if (isAll) {
+            rows.push({ key: 'bar', cls: 'k-lucas', value: fInt(r.lucasFtd[i]), label: 'Lucas (ACQ)' });
+            rows.push({ key: 'bar', cls: 'k-wayne', value: fInt(r.wayneFtd[i]), label: 'Wayne (Paid Media)' });
+            rows.push({ key: 'none', value: fInt(r.ftd[i]), label: 'Retail total' });
+          } else rows.push({ key: 'bar', cls: 'k-' + srcKey, value: fInt(r.ftd[i]), label: SOURCES[src].name });
+        }
+        if (isAll && T.ftd[i] != null) rows.push({ key: 'bar', cls: 'k-target', value: fInt(T.ftd[i]), label: 'Target' });
+        var note = null;
+        if (isAll && i <= last && T.ftd[i]) note = fPct(r.ftd[i] / T.ftd[i]) + ' of target';
+        if (i > last) note = 'No figures yet';
+        if (!rows.length) return null;
+        return { title: MONTHS_LONG[i] + ' 2026', rows: rows, note: note };
+      }
+    });
+
+    /* chart 2: cumulative */
+    var s2 = isAll ? [
+      { cls: 'line-target', values: r.planCum, endLabel: function (v) { return fInt(v) + ' plan'; }, soft: true, dot: null, labelDy: -8 },
+      { cls: 'line-total', values: r.cum, endLabel: fInt, dot: 'dot-total' }
+    ] : [{ cls: lineCls, values: r.cum, endLabel: fInt, dot: dotCls }];
+    $('#c2-title').textContent = isAll ? 'Year to date against plan' : SOURCES[src].name + ' FTD, year to date';
+    $('#c2-sub').textContent = isAll ? 'Running total of retail FTD and of the monthly targets.' : 'Running total for this source.';
+    legend($('#c2-legend'), isAll ? [{ shape: 'line', cls: 'k-total', label: 'Retail FTD' }, { shape: 'dash', label: 'Plan' }] : []);
+    lineChart($('#c2'), {
+      aria: 'Running total of FTD. ' + fInt(r.cum[last]) + ' by ' + MONTHS[last] + (isAll ? ' against ' + fInt(r.planCum[last]) + ' planned.' : '.'),
+      series: s2, yFmt: fInt, focusIndex: last, rightPad: 10,
+      tip: function (i) {
+        var rows = [];
+        if (r.cum[i] != null) rows.push({ key: 'line', cls: 'k-' + srcKey, value: fInt(r.cum[i]), label: isAll ? 'Retail FTD' : SOURCES[src].name });
+        if (isAll && r.planCum[i] != null) rows.push({ key: 'dash', value: fInt(r.planCum[i]), label: 'Plan' });
+        if (!rows.length) return null;
+        var note = (isAll && r.cum[i] != null && r.planCum[i] != null) ? fSigned(r.cum[i] - r.planCum[i]) + ' against plan' : null;
+        return { title: 'Jan–' + MONTHS[i] + ' 2026', rows: rows, note: note };
+      }
+    });
+    var co = $('#c2-callout');
+    if (isAll) {
+      var gap = r.cum[last] - r.planCum[last];
+      var left = 11 - last;
+      var need = left > 0 ? (r.plan.ftdFy - r.ytd.ftd) / left : null;
+      var q = Math.max(0, last - 2), avg = sumTo(r.ftd, last) - (q > 0 ? sumTo(r.ftd, q - 1) : 0);
+      avg = avg / (last - q + 1);
+      co.replaceChildren();
+      co.appendChild(document.createTextNode((gap < 0 ? 'Retail is ' : 'Retail is ahead by ')));
+      co.appendChild(h('b', null, fInt(Math.abs(gap)) + (gap < 0 ? ' FTD behind plan' : ' FTD')));
+      co.appendChild(document.createTextNode(' at the end of ' + MONTHS_LONG[last] + '. '));
+      if (need != null && need > 0) {
+        co.appendChild(document.createTextNode('Reaching ' + fInt(r.plan.ftdFy) + ' needs about '));
+        co.appendChild(h('b', null, fInt(need) + ' a month'));
+        co.appendChild(document.createTextNode(' from ' + MONTHS[last + 1] + ' to Dec; ' + MONTHS[q] + '–' + MONTHS[last] + ' averaged ' + fInt(avg) + '.'));
+      }
+      co.hidden = false;
+    } else co.hidden = true;
+
+    /* chart 3: spend */
+    $('#c3-title').textContent = isAll ? 'Spend by month' : SOURCES[src].name + ' spend by month';
+    var otherTotal = sumTo(r.other, last);
+    $('#c3-sub').textContent = isAll ? (otherTotal > 0 ? 'Reported spend on Master Retail, split into the two tabs and costs outside them.' : 'Reported spend on Master Retail, by source.') : 'Spend recorded on this tab.';
+    var s3 = isAll ? [
+      { cls: 'bar-lucas', values: r.lucasSpend },
+      { cls: 'bar-wayne', values: r.wayneSpend },
+      { cls: 'bar-other', values: r.other }
+    ] : [{ cls: barCls, values: r.spend }];
+    var lg3 = isAll ? [{ shape: 'bar', cls: 'k-lucas', label: 'Lucas (ACQ)' }, { shape: 'bar', cls: 'k-wayne', label: 'Wayne (Paid Media)' }] : [];
+    if (isAll && otherTotal > 0) lg3.push({ shape: 'bar', cls: 'k-other', label: 'Other costs (typed in)' });
+    if (isAll) lg3.push({ shape: 'mark', label: 'Budget' });
+    legend($('#c3-legend'), lg3);
+    columnChart($('#c3'), {
+      aria: 'Spend by month. ' + MONTHS[last] + ': ' + fMoney(r.spend[last]) + '.',
+      series: s3, target: isAll ? { values: T.spend } : null, yFmt: function (v) { return fMoney(v, true).replace('.0K', 'K'); },
+      labelIndex: last, labelFmt: function (v) { return fMoney(v, true); }, focusIndex: last,
+      tip: function (i) {
+        var rows = [];
+        if (i <= last) {
+          if (isAll) {
+            rows.push({ key: 'bar', cls: 'k-lucas', value: fMoney(r.lucasSpend[i]), label: 'Lucas (ACQ)' });
+            rows.push({ key: 'bar', cls: 'k-wayne', value: fMoney(r.wayneSpend[i]), label: 'Wayne (Paid Media)' });
+            if (r.other[i] > 0) rows.push({ key: 'bar', cls: 'k-other', value: fMoney(r.other[i]), label: 'Other costs (typed in)' });
+            rows.push({ key: 'none', value: fMoney(r.spend[i]), label: 'Reported spend' });
+          } else rows.push({ key: 'bar', cls: 'k-' + srcKey, value: fMoney(r.spend[i]), label: SOURCES[src].name });
+        }
+        if (isAll && T.spend[i] != null) rows.push({ key: 'bar', cls: 'k-target', value: fMoney(T.spend[i]), label: 'Budget' });
+        if (!rows.length) return null;
+        var note = isAll && i <= last && T.spend[i] ? fPct(r.spend[i] / T.spend[i]) + ' of budget' : (i > last ? 'No figures yet' : null);
+        return { title: MONTHS_LONG[i] + ' 2026', rows: rows, note: note };
+      }
+    });
+
+    /* chart 4: cost per FTD */
+    $('#c4-title').textContent = isAll ? 'Cost per FTD' : SOURCES[src].name + ' cost per FTD';
+    $('#c4-sub').textContent = isAll ? 'Reported spend divided by FTD, against the planned cost.' : 'Spend on this tab divided by its FTD.';
+    var s4 = isAll ? [
+      { cls: 'line-target', values: T.cpftd, soft: true },
+      { cls: 'line-total', values: r.cpftd, endLabel: function (v) { return fMoney(v); }, dot: 'dot-total' }
+    ] : [{ cls: lineCls, values: r.cpftd, endLabel: function (v) { return fMoney(v); }, dot: dotCls }];
+    legend($('#c4-legend'), isAll ? [{ shape: 'line', cls: 'k-total', label: 'Actual' }, { shape: 'dash', label: 'Planned cost' }] : []);
+    lineChart($('#c4'), {
+      aria: 'Cost per FTD by month. ' + MONTHS[last] + ': ' + fMoney(r.cpftd[last]) + '.',
+      series: s4, yFmt: function (v) { return '$' + fInt(v); }, focusIndex: last,
+      tip: function (i) {
+        var rows = [];
+        if (r.cpftd[i] != null) rows.push({ key: 'line', cls: 'k-' + srcKey, value: fMoney(r.cpftd[i]), label: 'Actual' });
+        if (isAll && T.cpftd[i] != null) rows.push({ key: 'dash', value: fMoney(T.cpftd[i]), label: 'Planned cost' });
+        if (!rows.length) return null;
+        return { title: MONTHS_LONG[i] + ' 2026', rows: rows, note: i <= last ? fMoney(r.spend[i]) + ' spend, ' + fInt(r.ftd[i]) + ' FTD' : 'No figures yet' };
+      }
+    });
+
+    /* by source */
+    var L = retailOf(d, 'lucas'), Wy = retailOf(d, 'wayne');
+    $('#src-sub').textContent = span(last) + ' 2026.';
+    function srcRow(label, cls, x, spendVal) {
+      return [nameCell(label, cls), fInt(x.ytd.ftd), fPct(all.ytd.ftd ? x.ytd.ftd / all.ytd.ftd : null), fMoney(spendVal), fMoney(x.ytd.ftd ? spendVal / x.ytd.ftd : null), fInt(x.ytd.kyc), fPct(x.ytd.kyc ? x.ytd.ftd / x.ytd.kyc : null), fMoney(x.ytd.amt, true), fMoney(x.ytd.net, true)];
+    }
+    table($('#src-table'), ['Source', 'FTD', 'Share', 'Spend', 'Cost per FTD', 'KYC', 'KYC to FTD', 'FTD amount', 'Net deposit'], [
+      srcRow('Lucas (ACQ)', 'k-lucas', L, L.ytd.spend),
+      srcRow('Wayne (Paid Media)', 'k-wayne', Wy, Wy.ytd.spend),
+      srcRow('Retail total', 'k-total', all, all.ytd.spend)
+    ]);
+    $('#src-fn').textContent = otherTotal > 0 ? 'Retail total spend is the reported figure on Master Retail. It includes ' + fMoney(otherTotal) + ' of typed-in costs that sit outside the two tabs, so it is more than Lucas plus Wayne.' : '';
+
+    /* monthly table */
+    var rows = [], head;
+    if (isAll) {
+      head = ['Month', 'Lucas (ACQ)', 'Wayne (Paid Media)', 'Retail FTD', 'Target', '% of target', 'Running total', 'Plan to date', 'Spend', 'Budget', 'Cost per FTD', 'Planned cost', 'FTD amount', 'Net deposit'];
+      for (var i = 0; i < 12; i++) {
+        var has = i <= last;
+        rows.push([MONTHS[i], has ? fInt(r.lucasFtd[i]) : '', has ? fInt(r.wayneFtd[i]) : '', has ? fInt(r.ftd[i]) : '', fInt(T.ftd[i]), has && T.ftd[i] ? fPct(r.ftd[i] / T.ftd[i]) : '', has ? fInt(r.cum[i]) : '', fInt(r.planCum[i]), has ? fMoney(r.spend[i]) : '', fMoney(T.spend[i]), has ? fMoney(r.cpftd[i]) : '', fMoney(T.cpftd[i]), has ? fMoney(r.amt[i]) : '', has ? fMoney(r.net[i]) : '']);
+      }
+      table($('#r-table'), head, rows, ['Jan–' + MONTHS[last], fInt(sumTo(r.lucasFtd, last)), fInt(sumTo(r.wayneFtd, last)), fInt(r.ytd.ftd), fInt(r.plan.ftdYtd), fPct(r.ytd.ftd / r.plan.ftdYtd), '', '', fMoney(r.ytd.spend), fMoney(r.plan.spendYtd), fMoney(r.ytd.ftd ? r.ytd.spend / r.ytd.ftd : null), fMoney(r.plan.spendYtd / r.plan.ftdYtd), fMoney(r.ytd.amt), fMoney(r.ytd.net)], last + 1);
+      $('#r-table-sub').textContent = 'Every figure behind the charts. Months after ' + MONTHS[last] + ' show the plan only.';
+    } else {
+      head = ['Month', 'Finalised', 'KYC', 'FTD', 'KYC to FTD', 'Running total', 'Spend', 'Cost per FTD', 'FTD amount', 'Gross deposit', 'Net deposit'];
+      for (i = 0; i < 12; i++) {
+        var hs = i <= last;
+        rows.push([MONTHS[i], hs ? fInt(r.fin[i]) : '', hs ? fInt(r.kyc[i]) : '', hs ? fInt(r.ftd[i]) : '', hs && r.kyc[i] ? fPct(r.ftd[i] / r.kyc[i]) : '', hs ? fInt(r.cum[i]) : '', hs ? fMoney(r.spend[i]) : '', hs ? fMoney(r.cpftd[i]) : '', hs ? fMoney(r.amt[i]) : '', hs ? fMoney(r.gross[i]) : '', hs ? fMoney(r.net[i]) : '']);
+      }
+      table($('#r-table'), head, rows, ['Jan–' + MONTHS[last], fInt(r.ytd.fin), fInt(r.ytd.kyc), fInt(r.ytd.ftd), fPct(r.ytd.kyc ? r.ytd.ftd / r.ytd.kyc : null), '', fMoney(r.ytd.spend), fMoney(r.ytd.ftd ? r.ytd.spend / r.ytd.ftd : null), fMoney(r.ytd.amt), fMoney(r.ytd.gross), fMoney(r.ytd.net)], last + 1);
+      $('#r-table-sub').textContent = SOURCES[src].name + ' tab, month by month.';
+    }
+    renderChecks($('#r-checks'), state.checks);
+  }
+
+  /* ---------- render: partner ---------- */
+  function renderPartner() {
+    var d = state.data, p = partnerOf(d), last = p.last;
+    var k = $('#p-kpis');
+    k.replaceChildren();
+    if (last < 0) { k.appendChild(h('p', 'state-msg', 'No partner figures in the sheet yet.')); return; }
+    var pct = p.plan.ibYtd ? p.ytd.ib / p.plan.ibYtd : null;
+    var st = pct == null ? null : pct >= 1 ? ['good', 'Ahead of plan'] : pct >= 0.9 ? ['warning', 'Close to plan'] : ['serious', 'Behind plan'];
+    k.appendChild(tile({
+      hero: true, label: 'IB accounts, ' + span(last) + ' 2026', value: fInt(p.ytd.ib), chip: st,
+      meter: { pct: Math.min(1, p.ytd.ib / p.plan.ibFy), fill: 'var(--c-partner)', track: 'var(--grid)', aria: fPct(p.ytd.ib / p.plan.ibFy) + ' of the full-year IB target' },
+      subs: [fPct(p.ytd.ib / p.plan.ibFy) + ' of the full-year target of ' + fInt(p.plan.ibFy), fPct(pct) + ' of the ' + span(last) + ' target of ' + fInt(p.plan.ibYtd)]
+    }));
+    k.appendChild(tile({ label: 'Partner FTD, ' + span(last), value: fInt(p.ytd.ftd), subs: ['No partner FTD target: the sheet’s partner targets repeat the retail ones.'] }));
+    var cur = p.ftd[last], prev = last > 0 ? p.ftd[last - 1] : null;
+    k.appendChild(tile({
+      label: MONTHS_LONG[last] + ' partner FTD', value: fInt(cur),
+      delta: prev == null ? null : { dir: cur > prev ? 'up' : cur < prev ? 'down' : 'flat', text: fSigned(cur - prev) + ' vs ' + MONTHS_LONG[last - 1] },
+      subs: [fInt(p.ib[last]) + ' new IB accounts in ' + MONTHS_LONG[last]]
+    }));
+    k.appendChild(tile({ label: 'Net deposit, ' + span(last), value: fMoney(p.ytd.net, true), subs: [fMoney(p.ytd.amt, true) + ' FTD amount'] }));
+    stripItems($('#p-strip'), [
+      [fMoney(p.ytd.gross, true), 'gross deposit'],
+      [fInt(p.ytd.fin), 'finalised'],
+      [fInt(p.ytd.kyc), 'KYC'],
+      [fPct(p.ytd.kyc ? p.ytd.ftd / p.ytd.kyc : null), 'KYC to FTD']
+    ]);
+
+    $('#c5-sub').textContent = 'New IB accounts against the monthly target.';
+    legend($('#c5-legend'), [{ shape: 'bar', cls: 'k-partner', label: 'IB accounts' }, { shape: 'mark', label: 'Monthly target' }]);
+    columnChart($('#c5'), {
+      aria: 'IB accounts by month. ' + MONTHS[last] + ': ' + fInt(p.ib[last]) + '.',
+      series: [{ cls: 'bar-partner', values: p.ib }], target: { values: p.ibTarget }, yFmt: fInt, labelIndex: last, labelFmt: fInt, focusIndex: last,
+      tip: function (i) {
+        var rows = [];
+        if (i <= last) rows.push({ key: 'bar', cls: 'k-partner', value: fInt(p.ib[i]), label: 'IB accounts' });
+        if (p.ibTarget[i] != null) rows.push({ key: 'bar', cls: 'k-target', value: fInt(p.ibTarget[i]), label: 'Target' });
+        if (!rows.length) return null;
+        return { title: MONTHS_LONG[i] + ' 2026', rows: rows, note: i <= last && p.ibTarget[i] ? fPct(p.ib[i] / p.ibTarget[i]) + ' of target' : (i > last ? 'No figures yet' : null) };
+      }
+    });
+    $('#c6-sub').textContent = 'Clients brought in by partners who made a first deposit.';
+    legend($('#c6-legend'), []);
+    columnChart($('#c6'), {
+      aria: 'Partner FTD by month. ' + MONTHS[last] + ': ' + fInt(p.ftd[last]) + '.',
+      series: [{ cls: 'bar-partner', values: p.ftd }], yFmt: fInt, labelIndex: last, labelFmt: fInt, focusIndex: last,
+      tip: function (i) {
+        if (i > last) return { title: MONTHS_LONG[i] + ' 2026', rows: [], note: 'No figures yet' };
+        return { title: MONTHS_LONG[i] + ' 2026', rows: [{ key: 'bar', cls: 'k-partner', value: fInt(p.ftd[i]), label: 'Partner FTD' }, { key: 'none', value: fMoney(p.amt[i]), label: 'FTD amount' }] };
+      }
+    });
+    var rows = [];
+    for (var i = 0; i < 12; i++) {
+      var has = i <= last;
+      rows.push([MONTHS[i], has ? fInt(p.ib[i]) : '', fInt(p.ibTarget[i]), has ? fInt(p.fin[i]) : '', has ? fInt(p.kyc[i]) : '', has ? fInt(p.ftd[i]) : '', has ? fMoney(p.amt[i]) : '', has ? fMoney(p.net[i]) : '']);
+    }
+    table($('#p-table'), ['Month', 'IB accounts', 'IB target', 'Finalised', 'KYC', 'FTD', 'FTD amount', 'Net deposit'], rows,
+      ['Jan–' + MONTHS[last], fInt(p.ytd.ib), fInt(p.plan.ibYtd), fInt(p.ytd.fin), fInt(p.ytd.kyc), fInt(p.ytd.ftd), fMoney(p.ytd.amt), fMoney(p.ytd.net)], last + 1);
+    $('#p-table-sub').textContent = 'Master Partner, month by month. Months after ' + MONTHS[last] + ' show the IB target only.';
+    renderChecks($('#p-checks'), state.checks, function (c) { return /partner|Partner/.test(c.title) || c.level === 'critical'; });
+    if (!$('#p-checks').children.length) renderChecks($('#p-checks'), [{ level: 'good', title: 'Nothing to flag', text: 'The partner figures read cleanly.' }]);
+  }
+
+  /* ---------- page state ---------- */
+  function setMessage(text) {
+    var msg = $('#state-msg');
+    msg.textContent = text;
+    msg.hidden = !text;
+  }
+  function render() {
+    hideTip();
+    var d = state.data;
+    var isRetail = state.view === 'retail';
+    $('#source-wrap').hidden = !isRetail || !d;
+    document.querySelectorAll('#view-tabs button, [role="tab"]').forEach(function (b) {
+      b.setAttribute('aria-selected', String(b.getAttribute('data-view') === state.view));
+    });
+    document.querySelectorAll('#source-filter button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-source') === state.source));
+    });
+    if (!d) {
+      $('#view-retail').hidden = true;
+      $('#view-partner').hidden = true;
+      return;
+    }
+    setMessage('');
+    state.checks = computeChecks(d);
+    var all = retailOf(d, 'all'), pp = partnerOf(d);
+    var metaBits = [];
+    if (all.last >= 0) metaBits.push('Retail to ' + MONTHS[all.last] + ' 2026');
+    if (pp.last >= 0) metaBits.push('Partner to ' + MONTHS[pp.last] + ' 2026');
+    if (d.updatedAt) metaBits.push('Updated ' + fmtDate(d.updatedAt, true));
+    var meta = $('#meta');
+    meta.textContent = metaBits.join(' · ');
+    if (state.local) {
+      meta.appendChild(document.createTextNode(' · '));
+      meta.appendChild(h('span', 'local-flag', 'Showing in this browser only'));
+    }
+    $('#foot-source').textContent = 'Source: ' + ((d.source && d.source.fileName) || 'the Global Team budget sheet') + (d.source && d.source.fileSavedAt ? ', saved ' + fmtDate(d.source.fileSavedAt, true) : '') + '.';
+    $('#view-retail').hidden = !isRetail;
+    $('#view-partner').hidden = isRetail;
+    if (isRetail) renderRetail(); else renderPartner();
+  }
+
+  /* ---------- update from budget sheet ---------- */
+  var sheetJs = null;
+  function loadSheetJS() {
+    if (window.XLSX) return Promise.resolve(window.XLSX);
+    if (sheetJs) return sheetJs;
+    var urls = ['https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js', 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js'];
+    sheetJs = urls.reduce(function (p, url) {
+      return p.catch(function () {
+        return new Promise(function (res, rej) {
+          var s = document.createElement('script');
+          s.src = url;
+          s.onload = function () { window.XLSX ? res(window.XLSX) : rej(new Error('no XLSX')); };
+          s.onerror = function () { s.remove(); rej(new Error('load failed')); };
+          document.head.appendChild(s);
+        });
+      });
+    }, Promise.reject(new Error('start')));
+    sheetJs.catch(function () { sheetJs = null; });
+    return sheetJs;
+  }
+  function setStatus(text, kind) {
+    var s = $('#update-status');
+    s.textContent = text || '';
+    s.className = 'update-status' + (kind ? ' ' + kind : '');
+  }
+  function clearPreview() {
+    state.pending = null;
+    $('#update-preview').hidden = true;
+    $('#update-preview').replaceChildren();
+    $('#update-actions').hidden = true;
+  }
+  function diffLines(label, oldArr, newArr, fmt) {
+    var out = [];
+    for (var i = 0; i < 12; i++) {
+      var a = oldArr ? oldArr[i] : null, b = newArr[i];
+      if (a == null && b == null) continue;
+      if (a != null && b != null && Math.abs(a - b) < 0.005) continue;
+      if (a == null) out.push(MONTHS[i] + ': new, ' + fmt(b));
+      else if (b == null) out.push(MONTHS[i] + ': ' + fmt(a) + ' removed');
+      else out.push(MONTHS[i] + ': ' + fmt(a) + ' → ' + fmt(b) + ' (' + (b - a > 0 ? '+' : '−') + fmt(Math.abs(b - a)) + ')');
+    }
+    return out.length ? { label: label, lines: out } : null;
+  }
+  function totalFtd(d) { return d.retail.lucas.ftd.map(function (v, i) { var w = d.retail.wayne.ftd[i]; return v == null && w == null ? null : (v || 0) + (w || 0); }); }
+  function showPreview(next) {
+    var old = state.data;
+    var groups = [
+      diffLines('Retail FTD', old ? totalFtd(old) : null, totalFtd(next), fInt),
+      diffLines('Lucas (ACQ) FTD', old ? old.retail.lucas.ftd : null, next.retail.lucas.ftd, fInt),
+      diffLines('Wayne (Paid Media) FTD', old ? old.retail.wayne.ftd : null, next.retail.wayne.ftd, fInt),
+      diffLines('Reported spend', old ? old.retail.reportedSpend : null, next.retail.reportedSpend, function (v) { return fMoney(v); }),
+      diffLines('Retail FTD target', old ? old.retail.target.ftd : null, next.retail.target.ftd, fInt),
+      diffLines('Partner FTD', old ? old.partner.ftd : null, next.partner.ftd, fInt),
+      diffLines('IB accounts', old ? old.partner.ib : null, next.partner.ib, fInt)
+    ].filter(Boolean);
+    var box = $('#update-preview');
+    box.replaceChildren();
+    var nr = retailOf(next, 'all'), np = partnerOf(next);
+    box.appendChild(h('p', null, 'This file has retail figures to ' + (nr.last >= 0 ? MONTHS_LONG[nr.last] : 'no month') + ' (' + fInt(nr.ytd.ftd) + ' FTD) and partner figures to ' + (np.last >= 0 ? MONTHS_LONG[np.last] : 'no month') + '.'));
+    if (!groups.length) box.appendChild(h('p', null, old ? 'No figures differ from what the dashboard shows now.' : ''));
+    groups.forEach(function (g) {
+      var sec = h('div');
+      sec.appendChild(h('h3', null, g.label));
+      var ul = h('ul');
+      g.lines.slice(0, 12).forEach(function (l) { ul.appendChild(h('li', null, l)); });
+      sec.appendChild(ul);
+      box.appendChild(sec);
+    });
+    if (next.labelIssues && next.labelIssues.length) {
+      box.appendChild(h('p', 'fn', 'Label warning: ' + next.labelIssues.map(function (x) { return x.tab + ' ' + x.ref + ' reads “' + x.found + '”'; }).join('; ') + '. Figures are read by position, so they are unaffected.'));
+    }
+    box.hidden = false;
+    $('#update-actions').hidden = false;
+    $('#update-save').disabled = false;
+  }
+  /* A data.json must have the same shape the parser produces, or the page would draw nonsense. */
+  var SHAPE = {
+    'retail.lucas': ['spend', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net'],
+    'retail.wayne': ['spend', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net'],
+    'retail': ['reportedSpend', 'sheetFtd'],
+    'retail.target': ['spend', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net', 'cpftd'],
+    'partner': ['spend', 'ib', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net', 'ibTarget']
+  };
+  function checkData(d) {
+    if (!d || typeof d !== 'object' || d.schema !== 1) return 'This is not a data.json saved from the FTD tracker.';
+    for (var path in SHAPE) {
+      var node = path.split('.').reduce(function (o, k) { return o && o[k]; }, d);
+      for (var i = 0; i < SHAPE[path].length; i++) {
+        var arr = node && node[SHAPE[path][i]];
+        var ok = Array.isArray(arr) && arr.length === 12 && arr.every(function (v) { return v === null || (typeof v === 'number' && isFinite(v)); });
+        if (!ok) return 'data.json is missing ' + path + '.' + SHAPE[path][i] + ' or it is not 12 monthly numbers.';
+      }
+    }
+    if (d.labelIssues != null && !Array.isArray(d.labelIssues)) d.labelIssues = [];
+    return '';
+  }
+  function readWorkbook(file) {
+    return Promise.all([loadSheetJS(), file.arrayBuffer()]).then(function (res) {
+      var XLSX = res[0];
+      var wb;
+      try { wb = XLSX.read(new Uint8Array(res[1]), { type: 'array' }); } catch (e) { throw new Error('unreadable'); }
+      var saved = file.lastModified ? new Date(file.lastModified).toISOString() : null;
+      var out = BudgetParser.parse(wb, { fileName: file.name, fileSavedAt: (wb.Props && wb.Props.ModifiedDate) ? null : saved, updatedVia: 'upload' });
+      if (out.errors.length) throw new Error('parse:' + out.errors.join(' '));
+      return out.data;
+    });
+  }
+  function readJson(file) {
+    return file.text().then(function (text) {
+      var d;
+      try { d = JSON.parse(text); } catch (e) { throw new Error('parse:That file is not valid JSON.'); }
+      var problem = checkData(d);
+      if (problem) throw new Error('parse:' + problem);
+      return d;
+    });
+  }
+  function handleFile(file) {
+    clearPreview();
+    $('#publish-box').hidden = true;
+    if (!file) return;
+    var isXlsx = /\.xlsx$/i.test(file.name), isJson = /\.json$/i.test(file.name);
+    if (!isXlsx && !isJson) { setStatus('Drop the budget sheet as an .xlsx workbook, or a data.json file saved from this page.', 'err'); return; }
+    setStatus('Reading ' + file.name + '…');
+    (isXlsx ? readWorkbook(file) : readJson(file)).then(function (data) {
+      state.pending = data;
+      setStatus(state.data ? 'Check the changes below, then show the new figures.' : 'Check the figures below, then show them.');
+      showPreview(data);
+    }).catch(function (e) {
+      var msg = (e && e.message) || '';
+      if (msg.indexOf('parse:') === 0) setStatus(msg.slice(6), 'err');
+      else if (/load failed|no XLSX|start/.test(msg)) setStatus('The spreadsheet reader could not load. Check your connection and try again.', 'err');
+      else setStatus('That file could not be read as a workbook. Make sure it is the .xlsx budget sheet.', 'err');
+    });
+  }
+  function apply() {
+    if (!state.pending) return;
+    var next = JSON.parse(JSON.stringify(state.pending));
+    if (next.updatedVia === 'upload') next.updatedAt = new Date().toISOString();
+    state.data = next;
+    state.local = true;
+    var nr = retailOf(next, 'all');
+    clearPreview();
+    $('#budget-file').value = '';
+    render();
+    setStatus('Showing figures to ' + (nr.last >= 0 ? MONTHS_LONG[nr.last] : 'the latest month') + ' in this browser only. Nothing was uploaded.', 'ok');
+    $('#publish-box').hidden = false;
+  }
+  function downloadJson() {
+    if (!state.data) return;
+    var blob = new Blob([JSON.stringify(state.data, null, 2) + '\n'], { type: 'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'data.json';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  /* ---------- wiring ---------- */
+  function wire() {
+    tip = $('#tip');
+    document.querySelectorAll('[role="tab"]').forEach(function (b) {
+      b.addEventListener('click', function () { state.view = b.getAttribute('data-view'); render(); });
+      b.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        state.view = state.view === 'retail' ? 'partner' : 'retail';
+        render();
+        $('#tab-' + state.view).focus();
+        e.preventDefault();
+      });
+    });
+    document.querySelectorAll('#source-filter button').forEach(function (b) {
+      b.addEventListener('click', function () { state.source = b.getAttribute('data-source'); render(); });
+    });
+    $('#update-toggle').addEventListener('click', function () {
+      var p = $('#update-panel');
+      p.hidden = !p.hidden;
+      if (!p.hidden) {
+        setStatus('');
+        clearPreview();
+        $('#publish-box').hidden = !state.local;
+        loadSheetJS().catch(function () {});
+      }
+    });
+    $('#update-close').addEventListener('click', function () { $('#update-panel').hidden = true; clearPreview(); setStatus(''); });
+    $('#update-discard').addEventListener('click', function () {
+      clearPreview();
+      setStatus('Discarded. The dashboard still shows the figures it had.');
+      $('#budget-file').value = '';
+      $('#publish-box').hidden = !state.local;
+    });
+    $('#update-save').addEventListener('click', apply);
+    $('#download-json').addEventListener('click', downloadJson);
+    $('#budget-file').addEventListener('change', function (e) { handleFile(e.target.files && e.target.files[0]); });
+    var dz = $('#dropzone');
+    ['dragenter', 'dragover'].forEach(function (t) { dz.addEventListener(t, function (e) { e.preventDefault(); dz.classList.add('is-over'); }); });
+    ['dragleave', 'drop'].forEach(function (t) { dz.addEventListener(t, function () { dz.classList.remove('is-over'); }); });
+    dz.addEventListener('drop', function (e) { e.preventDefault(); handleFile(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]); });
+    var raf = 0, lastW = document.documentElement.clientWidth;
+    window.addEventListener('resize', function () {
+      var w = document.documentElement.clientWidth;
+      if (w === lastW) return;
+      lastW = w;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () { if (state.data) render(); });
+    });
+    try { if (location.hash === '#partner') state.view = 'partner'; } catch (e) {}
+    try { var s = localStorage.getItem('ftd-source'); if (s && SOURCES[s]) state.source = s; } catch (e) {}
+    document.querySelectorAll('#source-filter button').forEach(function (b) {
+      b.addEventListener('click', function () { try { localStorage.setItem('ftd-source', state.source); } catch (e) {} });
+    });
+  }
+
+  function boot() {
+    wire();
+    render();
+    var fromFile = location.protocol === 'file:';
+    var load = fromFile ? Promise.reject(new Error('file')) : fetch('data.json', { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error('status ' + r.status);
+      return r.json();
+    }).then(function (d) {
+      var problem = checkData(d);
+      if (problem) throw new Error(problem);
+      return d;
+    });
+    load.then(function (d) {
+      if (state.local) return; // the viewer already dropped in their own figures
+      state.data = d;
+      render();
+    }).catch(function () {
+      if (state.data) return;
+      $('#meta').textContent = 'No figures loaded yet.';
+      setMessage(fromFile
+        ? 'This page was opened as a file, so it cannot read data.json next to it. Drop the budget sheet or data.json into the panel above, or open the hosted page.'
+        : 'No figures yet. Drop the budget sheet (.xlsx) or a data.json file into the panel above.');
+      $('#update-panel').hidden = false;
+      setStatus('Drop the budget sheet (.xlsx) or a data.json file to see the dashboard.');
+      loadSheetJS().catch(function () {});
+    });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
