@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<style>
+<style id="ftd-style">
 :root {
   color-scheme: light;
   --page: #f3f5f8;
@@ -407,6 +407,9 @@ tfoot td { font-weight: 600; border-bottom: 0; font-variant-numeric: tabular-num
 .publish p { color: var(--ink-2); font-size: 13px; max-width: 75ch; }
 .publish ol { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13px; display: grid; gap: 2px; }
 .local-flag { color: var(--warning-ink); font-weight: 500; }
+.link-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.link-btn:hover { color: var(--ink); }
+.link-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 2px; }
 @media (prefers-reduced-motion: no-preference) {
   .meter > span { transition: width 0.5s ease; }
 }
@@ -414,44 +417,14 @@ tfoot td { font-weight: 600; border-bottom: 0; font-variant-numeric: tabular-num
 </head>
 <body>
 
-<div class="app">
+<div class="app" id="app">
   <header class="top">
     <div>
       <p class="eyebrow">Client acquisition · 2026</p>
       <h1>FTD tracker</h1>
       <p class="meta" id="meta">Loading the latest figures…</p>
     </div>
-    <button type="button" id="update-toggle" class="btn btn-secondary">Update figures</button>
   </header>
-
-  <section id="update-panel" class="card update" hidden aria-labelledby="update-title">
-    <div class="update-head">
-      <h2 id="update-title">Update figures</h2>
-      <button type="button" id="update-close" class="btn btn-ghost">Close</button>
-    </div>
-    <p class="help">In SharePoint, open the budget sheet and download a copy (File, Create a Copy, Download a Copy), then drop it here. The file is read in your browser and is not uploaded anywhere. You can also drop a data.json file saved from this page.</p>
-    <label class="drop" id="dropzone" for="budget-file">
-      <span class="drop-main">Drop the .xlsx or data.json file here or <u>choose a file</u></span>
-      <span class="drop-sub">(New Data) 2026 TMGM Budget Sheet - Global Team.xlsx</span>
-      <input id="budget-file" type="file" accept=".xlsx,.json,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-    </label>
-    <p id="update-status" class="update-status" role="status" aria-live="polite"></p>
-    <div id="update-preview" class="preview" hidden></div>
-    <div id="update-actions" class="update-actions" hidden>
-      <button type="button" id="update-save" class="btn btn-primary">Show these figures</button>
-      <button type="button" id="update-discard" class="btn btn-ghost">Discard</button>
-    </div>
-    <div id="publish-box" class="publish" hidden>
-      <h3>Publish for everyone</h3>
-      <p>These figures are showing in this browser only. To update the hosted dashboard, replace data.json in your GitHub repository with the file below.</p>
-      <ol>
-        <li>Choose Download data.json.</li>
-        <li>In the GitHub repository, choose Add file, then Upload files, and drop in data.json.</li>
-        <li>Commit the change. The site shows the new figures within a few minutes.</li>
-      </ol>
-      <div class="update-actions"><button type="button" id="download-json" class="btn btn-primary">Download data.json</button></div>
-    </div>
-  </section>
 
   <nav class="controls" aria-label="Dashboard controls">
     <div class="seg" role="tablist" aria-label="View">
@@ -540,16 +513,45 @@ tfoot td { font-weight: 600; border-bottom: 0; font-variant-numeric: tabular-num
     </section>
   </div>
 
+  <section id="update-panel" class="card update" hidden aria-labelledby="update-title">
+    <div class="update-head">
+      <h2 id="update-title">Update the figures</h2>
+      <button type="button" id="update-close" class="btn btn-ghost">Close</button>
+    </div>
+    <p class="help">For whoever keeps this page up to date. In SharePoint, open the budget sheet and download a copy (File, Create a Copy, Download a Copy), then drop it here. The file is read in your browser and is not uploaded anywhere.</p>
+    <label class="drop" id="dropzone" for="budget-file">
+      <span class="drop-main">Drop the budget sheet here or <u>choose a file</u></span>
+      <span class="drop-sub">(New Data) 2026 TMGM Budget Sheet - Global Team.xlsx</span>
+      <input id="budget-file" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    </label>
+    <p id="update-status" class="update-status" role="status" aria-live="polite"></p>
+    <div id="update-preview" class="preview" hidden></div>
+    <div id="update-actions" class="update-actions" hidden>
+      <button type="button" id="update-save" class="btn btn-primary">Show these figures</button>
+      <button type="button" id="update-discard" class="btn btn-ghost">Discard</button>
+    </div>
+    <div id="publish-box" class="publish" hidden>
+      <h3>Share the update</h3>
+      <p>The new figures are showing in this browser only. Download the updated page, which has the new figures saved inside it, and put it where your team opens it.</p>
+      <ol>
+        <li>Choose Download updated page. It saves a new index.html.</li>
+        <li>In the GitHub repository, choose Add file, then Upload files, drop in index.html and commit. Everyone with the link sees the new figures within about ten minutes.</li>
+        <li>Or send the file itself on Teams or email. It opens in any browser.</li>
+      </ol>
+      <div class="update-actions"><button type="button" id="download-page" class="btn btn-primary">Download updated page</button></div>
+    </div>
+  </section>
+
   <footer class="foot" id="foot">
     <p>Retail combines the Lucas (ACQ) and Wayne (Paid Media) tabs, as Master Retail does. Retail FTDs count toward the month the client registered, so recent months keep rising as late deposits land. Partner figures follow Master Partner, which uses verified time, so retail and partner are shown separately and never added together.</p>
     <p id="foot-source"></p>
-    <p>The page loads its figures from data.json in the same folder. Update figures reads a new budget sheet in your browser and lets you download a fresh data.json to commit.</p>
+    <p>The figures are saved inside this page, so it opens the same from a link or as a file. To refresh them from a newer budget sheet, <button type="button" id="update-toggle" class="link-btn">update the figures</button>.</p>
   </footer>
 </div>
 
 <div id="tip" class="tip" hidden></div>
 
-<script>
+<script id="ftd-parser">
 /* Reads the four 2026 tabs of the Global Team budget sheet by their fixed layout.
    Shared by the dashboard's "Update from budget sheet" feature and the initial data load. */
 var BudgetParser = (function () {
@@ -645,9 +647,34 @@ var BudgetParser = (function () {
 if (typeof module !== 'undefined' && module.exports) module.exports = BudgetParser;
 
 </script>
-<script>
+<script id="ftd-data" type="application/json">{"schema":1,"months":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"retail":{"lucas":{"spend":[3115,3115,3115,3115,3115,3115,3115,3115,3115,null,null,null],"finalised":[866,1005,1500,1200,3559,1489,754,1119,1489,null,null,null],"kyc":[379,349,788,510,1065,735,431,456,680,null,null,null],"ftd":[153,121,292,134,246,368,243,267,272,null,null,null],"ftdAmt":[63715.3,46398.7,193945.2,85912.5,238324.2,261573,121070,94848,48388,null,null,null],"gross":[360809.1,799976,1004473,536604.9,532752.9,1045199,243848,172796,111759.5,null,null,null],"net":[172748.8,316272.9,381936.6,346485.1,11620.7,668090,170875,135005,79519.6,null,null,null]},"wayne":{"spend":[34641.43,41235.03,55615.81,63544.16,144940.11,67113.36,98310.41,110074.74,85384.42,null,null,null],"finalised":[4689,3487,9608,9806,20952,7254,1514,2387,2487,null,null,null],"kyc":[1011,1413,4594,4105,9499,1297,479,571,669,null,null,null],"ftd":[270,329,590,279,466,396,398,373,423,null,null,null],"ftdAmt":[87519.95,48632.11,137028.6,42933.4,142851.22999999998,72005.03,106138.08,79464.29,48237.02,null,null,null],"gross":[299144.55,833965.06,657870.46,495150.48,426046.06999999995,170527.56,242644.07,190395.02,108068.25,null,null,null],"net":[141935.03999999998,391097.63999999996,342864.37,367625.91000000003,25611.239999999998,119472.95999999999,159662.94,137876,81143.98,null,null,null]},"reportedSpend":[42908.34,50501.88,80158.06,73086.41,154482.36,70228.36,101425.41,113189.74,88499.42,null,null,null],"sheetFtd":[423,450,882,413,712,764,641,640,695,0,0,0],"target":{"spend":[213500,228750,244000,225250,238500,251750,232500,244125,255750,276000,288000,300000],"finalised":[3514.0915069428406,3765.098043153044,4016.1045793632466,4267.111115573449,4518.117651783652,4769.124187993855,5020.1307242040575,5271.137260414261,5522.143796624464,5773.150332834667,6024.15686904487,6275.163405255073],"kyc":[2554.744525547445,2737.2262773722628,2919.70802919708,3102.1897810218975,3284.671532846715,3467.1532846715327,3649.63503649635,3832.1167883211674,4014.598540145985,4197.080291970803,4379.56204379562,4562.043795620438],"ftd":[700,750,800,850,900,950,1000,1050,1100,1150,1200,1250],"ftdAmt":[200900,215250,229600,243950,258300,272650,287000,301350,315700,330050,344400,358750],"gross":[1290100,1382250,1474400,1566550,1658700,1750850,1843000,1935150,2027300,2119450,2211600,2303750],"net":[436100,467250,498400,529550,560700,591850,623000,654150,685300,716450,747600,778750],"cpftd":[305,305,305,265,265,265,232.5,232.5,232.5,240,240,240]}},"partner":{"spend":[0,0,0,0,0,0,0,0,null,null,null,null],"ib":[426,334,463,702,596,611,608,539,null,null,null,null],"finalised":[2902,2377,4768,4659,4448,3669,4292,5129,null,null,null,null],"kyc":[2293,1702,2419,3032,3110,2740,3076,3534,null,null,null,null],"ftd":[1515,1053,1132,1618,1644,1474,1627,1716,null,null,null,null],"ftdAmt":[1526362.4,1534877.6,2083599.4,1613496.3,2355058,2399545,2936786.9,1789768,null,null,null,null],"gross":[7787716.2,7072676.8,5207290.3,5990275.4,7632142,6477933.7,6227600.9,3329243,null,null,null,null],"net":[2169094.7,2397500,1190017,1625601.4,3381190.7,3445191.2,5023769.9,2366018,null,null,null,null],"ibTarget":[390,390,392,392,392,392,392,392,392,392,392,392]},"labelIssues":[{"tab":"Wayne (Paid Media)","ref":"A9","found":"E6","expected":"May"},{"tab":"Wayne (Paid Media)","ref":"A12","found":"AugE7","expected":"Aug"}],"source":{"fileName":"(New Data) 2026 TMGM Budget Sheet - Global Team.xlsx","fileSavedAt":"2026-09-27T09:54:47.000Z"},"updatedAt":"2026-09-27T10:52:00.726Z","updatedVia":"claude"}</script>
+<script id="ftd-app">
 (function () {
   'use strict';
+  /* A clean copy of this page's own markup, taken before anything is drawn, so "Download updated page"
+     can save the same page with new figures inside. Anything a browser extension adds is left out. */
+  var PRISTINE = (function () {
+    function keepHead(el) {
+      var t = el.tagName;
+      if (t === 'TITLE') return true;
+      if (t === 'META') return el.hasAttribute('charset') || /^(viewport|robots)$/.test(el.getAttribute('name') || '');
+      if (t === 'LINK') return /^https:\/\/fonts\.(googleapis|gstatic)\.com(\/|$)/.test(el.getAttribute('href') || '');
+      if (t === 'STYLE') return el.id === 'ftd-style';
+      return false;
+    }
+    var KEEP_BODY = { app: 1, tip: 1, 'ftd-parser': 1, 'ftd-data': 1, 'ftd-app': 1 };
+    var head = Array.prototype.filter.call(document.head.children, keepHead).map(function (el) { return el.outerHTML; });
+    var body = Array.prototype.filter.call(document.body.children, function (el) { return KEEP_BODY[el.id] === 1; })
+      .map(function (el) { return { id: el.id, html: el.outerHTML }; });
+    return { head: head, body: body };
+  })();
+  function buildPage(data) {
+    var json = JSON.stringify(data).replace(/</g, '\\u003c');
+    var body = PRISTINE.body.map(function (b) {
+      return b.id === 'ftd-data' ? '<script id="ftd-data" type="application/json">' + json + '</scr' + 'ipt>' : b.html;
+    });
+    return '<!doctype html>\n<html lang="en">\n<head>\n' + PRISTINE.head.join('\n') + '\n</head>\n<body>\n' + body.join('\n') + '\n</body>\n</html>\n';
+  }
   var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   var MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   var SOURCES = {
@@ -1554,7 +1581,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
     $('#update-actions').hidden = false;
     $('#update-save').disabled = false;
   }
-  /* A data.json must have the same shape the parser produces, or the page would draw nonsense. */
+  /* The saved figures must have the shape the parser produces, or the page would draw nonsense. */
   var SHAPE = {
     'retail.lucas': ['spend', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net'],
     'retail.wayne': ['spend', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net'],
@@ -1563,13 +1590,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
     'partner': ['spend', 'ib', 'finalised', 'kyc', 'ftd', 'ftdAmt', 'gross', 'net', 'ibTarget']
   };
   function checkData(d) {
-    if (!d || typeof d !== 'object' || d.schema !== 1) return 'This is not a data.json saved from the FTD tracker.';
+    if (!d || typeof d !== 'object' || d.schema !== 1) return 'These are not figures saved by the FTD tracker.';
     for (var path in SHAPE) {
       var node = path.split('.').reduce(function (o, k) { return o && o[k]; }, d);
       for (var i = 0; i < SHAPE[path].length; i++) {
         var arr = node && node[SHAPE[path][i]];
         var ok = Array.isArray(arr) && arr.length === 12 && arr.every(function (v) { return v === null || (typeof v === 'number' && isFinite(v)); });
-        if (!ok) return 'data.json is missing ' + path + '.' + SHAPE[path][i] + ' or it is not 12 monthly numbers.';
+        if (!ok) return 'The saved figures are missing ' + path + '.' + SHAPE[path][i] + ' or it is not 12 monthly numbers.';
       }
     }
     if (d.labelIssues != null && !Array.isArray(d.labelIssues)) d.labelIssues = [];
@@ -1586,23 +1613,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
       return out.data;
     });
   }
-  function readJson(file) {
-    return file.text().then(function (text) {
-      var d;
-      try { d = JSON.parse(text); } catch (e) { throw new Error('parse:That file is not valid JSON.'); }
-      var problem = checkData(d);
-      if (problem) throw new Error('parse:' + problem);
-      return d;
-    });
-  }
   function handleFile(file) {
     clearPreview();
     $('#publish-box').hidden = true;
     if (!file) return;
-    var isXlsx = /\.xlsx$/i.test(file.name), isJson = /\.json$/i.test(file.name);
-    if (!isXlsx && !isJson) { setStatus('Drop the budget sheet as an .xlsx workbook, or a data.json file saved from this page.', 'err'); return; }
+    if (!/\.xlsx$/i.test(file.name)) { setStatus('That is not an .xlsx file. Download the budget sheet as an Excel workbook and try again.', 'err'); return; }
     setStatus('Reading ' + file.name + '…');
-    (isXlsx ? readWorkbook(file) : readJson(file)).then(function (data) {
+    readWorkbook(file).then(function (data) {
       state.pending = data;
       setStatus(state.data ? 'Check the changes below, then show the new figures.' : 'Check the figures below, then show them.');
       showPreview(data);
@@ -1626,13 +1643,13 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
     setStatus('Showing figures to ' + (nr.last >= 0 ? MONTHS_LONG[nr.last] : 'the latest month') + ' in this browser only. Nothing was uploaded.', 'ok');
     $('#publish-box').hidden = false;
   }
-  function downloadJson() {
+  function downloadPage() {
     if (!state.data) return;
-    var blob = new Blob([JSON.stringify(state.data, null, 2) + '\n'], { type: 'application/json' });
+    var blob = new Blob([buildPage(state.data)], { type: 'text/html' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'data.json';
+    a.download = 'index.html';
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1657,13 +1674,14 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
     });
     $('#update-toggle').addEventListener('click', function () {
       var p = $('#update-panel');
-      p.hidden = !p.hidden;
-      if (!p.hidden) {
-        setStatus('');
-        clearPreview();
-        $('#publish-box').hidden = !state.local;
-        loadSheetJS().catch(function () {});
-      }
+      if (!p.hidden) { p.scrollIntoView({ block: 'start' }); return; }
+      p.hidden = false;
+      setStatus('');
+      clearPreview();
+      $('#publish-box').hidden = !state.local;
+      loadSheetJS().catch(function () {});
+      var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      p.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
     });
     $('#update-close').addEventListener('click', function () { $('#update-panel').hidden = true; clearPreview(); setStatus(''); });
     $('#update-discard').addEventListener('click', function () {
@@ -1673,7 +1691,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
       $('#publish-box').hidden = !state.local;
     });
     $('#update-save').addEventListener('click', apply);
-    $('#download-json').addEventListener('click', downloadJson);
+    $('#download-page').addEventListener('click', downloadPage);
     $('#budget-file').addEventListener('change', function (e) { handleFile(e.target.files && e.target.files[0]); });
     var dz = $('#dropzone');
     ['dragenter', 'dragover'].forEach(function (t) { dz.addEventListener(t, function (e) { e.preventDefault(); dz.classList.add('is-over'); }); });
@@ -1696,30 +1714,20 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BudgetPars
 
   function boot() {
     wire();
-    render();
-    var fromFile = location.protocol === 'file:';
-    var load = fromFile ? Promise.reject(new Error('file')) : fetch('data.json', { cache: 'no-store' }).then(function (r) {
-      if (!r.ok) throw new Error('status ' + r.status);
-      return r.json();
-    }).then(function (d) {
-      var problem = checkData(d);
-      if (problem) throw new Error(problem);
-      return d;
-    });
-    load.then(function (d) {
-      if (state.local) return; // the viewer already dropped in their own figures
+    var d = null;
+    try { d = JSON.parse(document.getElementById('ftd-data').textContent); } catch (e) { d = null; }
+    if (d && !checkData(d)) {
       state.data = d;
       render();
-    }).catch(function () {
-      if (state.data) return;
-      $('#meta').textContent = 'No figures loaded yet.';
-      setMessage(fromFile
-        ? 'This page was opened as a file, so it cannot read data.json next to it. Drop the budget sheet or data.json into the panel above, or open the hosted page.'
-        : 'No figures yet. Drop the budget sheet (.xlsx) or a data.json file into the panel above.');
-      $('#update-panel').hidden = false;
-      setStatus('Drop the budget sheet (.xlsx) or a data.json file to see the dashboard.');
-      loadSheetJS().catch(function () {});
-    });
+      return;
+    }
+    // Only reached if the saved figures are missing or damaged.
+    render();
+    $('#meta').textContent = 'No figures loaded yet.';
+    setMessage('This page has no figures saved in it. Drop the budget sheet into the panel below to load them.');
+    $('#update-panel').hidden = false;
+    setStatus('Drop the budget sheet (.xlsx) to see the dashboard.');
+    loadSheetJS().catch(function () {});
   }
   boot();
 })();
